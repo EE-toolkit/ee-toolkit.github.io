@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>APA 7 reference builder · Конструктор ссылок APA 7</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--tx:#1d2330;--mut:#667085;--line:#e3e5ea;--ac:#2563eb;--ok:#16a34a;--warn:#d97706;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141c;--card:#181e2a;--tx:#e8ebf2;--mut:#9aa3b5;--line:#2a3243;--ac:#6b9bff;--ok:#4ade80;--warn:#fbbf24;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141c;--card:#181e2a;--tx:#e8ebf2;--mut:#9aa3b5;--line:#2a3243;--ac:#6b9bff;--ok:#4ade80;--warn:#fbbf24;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:920px;margin:0 auto;padding:14px}
+h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:0 0 8px}.hint{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+label{display:block;font-size:13px;color:var(--mut)}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%;box-sizing:border-box;margin-top:3px}
+button{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--tx);cursor:pointer;margin:2px 4px 2px 0}
+button.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+.ref{padding-left:2em;text-indent:-2em;margin:4px 0}
+.out{background:var(--bg);border-radius:10px;padding:10px 12px;margin:10px 0}
+.ent{border-top:1px solid var(--line);padding:8px 0}.ent .it{font-size:13px;color:var(--mut)}
+.warn{color:var(--warn)}ul{padding-left:20px;margin:6px 0}li{margin:3px 0}a{color:var(--ac)}
+</style>
+</head>
+<body>
+<main>
+<h1>📚 APA 7 reference builder · Конструктор ссылок APA</h1>
+<p class="hint">APA Style, 7th edition (the current edition), including the September 2025 APA Style guidance on citing generative AI. Fill in the fields, check the result and add it to your reference list. Saved in this browser only. · Действующее 7-е издание и правила APA для ИИ от сентября 2025.</p>
+
+<div class="card"><h2>1. Source · Источник</h2>
+<label>Type of source · Тип источника<select id="ty"></select></label>
+<div class="g" id="fs" style="margin-top:8px"></div>
+<p><button id="ex">Load an invented example</button><button id="clr">Clear</button><button id="scs">Title → sentence case</button></p>
+<div class="out" id="pv"></div>
+<p><button class="pri" id="add">Add to my reference list</button><button id="cpr">Copy reference</button><span class="hint" id="msg"></span></p></div>
+
+<div class="card"><h2>2. My reference list · Мой список литературы</h2>
+<p class="hint">Sorted alphabetically; works by the same author in the same year get a, b, c automatically. Tick sources to combine them in one citation (section 3).</p>
+<div id="ls"></div>
+<p><button class="pri" id="cpl">Copy reference list (with italics)</button><button id="cpt">Copy as plain text</button></p></div>
+
+<div class="card"><h2>3. Combined and secondary citations · Несколько источников и «as cited in»</h2>
+<div class="out" id="cmb"><span class="hint">Tick two or more sources in your list.</span></div>
+<div class="g"><label>Original author you did not read (e.g. Freud)<input id="oa"></label><label>Original year<input id="oy2"></label></div>
+<div class="out" id="sec"><span class="hint">Tick the source where you found it, then fill in the original author and year.</span></div></div>
+
+<div class="card"><h2>4. Key rules · Главные правила APA 7</h2><ul>
+<li>One or two authors: name them every time, (Smith &amp; Lee, 2020) in brackets and Smith and Lee (2020) in a sentence. Three or more: (Smith et al., 2020) from the first citation.</li>
+<li>Group authors: you may define an abbreviation at the first citation, (World Health Organization [WHO], 2020), then use (WHO, 2020).</li>
+<li>Direct quotations need a locator: page (p. 12, pp. 12–13), paragraph for web pages (para. 3) or a time stamp for audiovisual works (1:23).</li>
+<li>No date: (Smith, n.d.). No author: move the title to the author position and cite the title in the text.</li>
+<li>Titles of articles, chapters and web pages use sentence case. Italicise books, reports, web pages, data sets, films, videos and the names of journals, newspapers and podcasts.</li>
+<li>Non-English sources: give the title in the original language followed by an English translation in square brackets.</li>
+<li>Give DOIs as https://doi.org/…; add a retrieval date only for pages designed to change over time.</li>
+<li>Generative AI (APA Style, September 2025): cite the specific chat as Company. (Year, Month Day). <i>Title of chat</i> [Generative AI chat]. Tool or model. URL of the chat; or cite the tool generally as Company. (Year). <i>Tool or model</i> [Large language model]. URL. In the text: (OpenAI, 2025). Describe how you used AI in your essay, and follow your school’s AI rules.</li>
+<li>Personal communications (interviews you did, emails) are cited in the text only and do not appear in the reference list.</li>
+<li>Every in-text citation has a reference-list entry and every entry is cited in the text. In the EE, citations and the reference list do not count towards the 4000 words.</li>
+</ul><p class="hint">Check details in the official APA Style guidance: apastyle.apa.org (references and in-text citations).</p></div>
+</main>
+<script>
+var T={book:["Book","a,ab,y,t,tt,ed,pub,u"],edbook:["Edited book (whole book)","a,y,t,tt,ed,pub,u"],chapter:["Chapter in an edited book","a,y,t,tt,eds,c,p,pub,u"],journal:["Journal article","a,y,t,tt,c,v,i,p,u"],magazine:["Magazine article","a,y,md,t,c,v,i,p,u"],news:["Newspaper article","a,y,md,t,tt,c,u"],web:["Web page","a,ab,y,md,t,tt,c,r,u"],report:["Report (organisation or government)","a,ab,y,t,tt,num,pub,u"],data:["Data set","a,ab,y,t,pub,r,u"],aichat:["Generative AI chat (specific chat)","a,y,md,t,m,u"],aitool:["Generative AI tool (in general)","a,y,t,u"],video:["Online video (e.g. YouTube)","a,y,md,t,c,u"],film:["Film","a,y,t,pub"],podcast:["Podcast episode","a,y,md,t,num,c,pub,u"],social:["Social media post","a,y,md,t,dsc,c,u"],entry:["Dictionary or encyclopedia entry","a,y,t,c,r,u"],trans:["Translated book","a,y,t,tr,pub,oy,u"],thesis:["Thesis or dissertation","a,y,t,tt,tp,uni,c,u"],other:["Other online work (slides, infographic, map…)","a,y,md,t,dsc,c,u"],pc:["Interview or personal communication","a,y,md"]};
+var L={a:"Authors, one per line: “Surname, Given names” for people (initials are added for you); an organisation without a comma",ab:"Abbreviation of a group author (optional, e.g. WHO)",y:"Year (leave empty if no date)",md:"Month and day (e.g. March 5)",t:"Title (sentence case)",tt:"English translation of a non-English title (optional)",ed:"Edition (e.g. 2nd)",eds:"Editors (e.g. M. Brown & T. Green)",c:"Journal, book, website or newspaper",v:"Volume",i:"Issue",p:"Pages or article number (e.g. 45–67)",pub:"Publisher",u:"DOI or URL",r:"Retrieved date, only for pages that change (e.g. March 5, 2027)",num:"Number",m:"Tool or model (e.g. ChatGPT, Claude Sonnet 4)",tr:"Translator (e.g. A. Translator)",oy:"Year of the original work",dsc:"Description in brackets (e.g. PowerPoint slides)",tp:"Type (e.g. Master’s thesis, Doctoral dissertation)",uni:"University"};
+var O={edbook:{a:"Editors, one per line: “Surname, Given names”"},chapter:{c:"Title of the edited book"},journal:{c:"Journal name",p:"Pages or article number"},magazine:{c:"Magazine name"},news:{c:"Newspaper name"},web:{c:"Website name (leave empty if the same as the author)"},report:{pub:"Publisher (leave empty if the same as the author)",num:"Report number (optional)"},data:{pub:"Publisher (leave empty if the same as the author)"},aichat:{a:"AI company (e.g. OpenAI, Anthropic, Google)",md:"Month and day the chat took place or ended",t:"Title of the chat (sentence case)",u:"Shared URL of the chat"},aitool:{a:"AI company (e.g. OpenAI)",y:"Year the tool was last updated",t:"Tool or model name (title case, e.g. ChatGPT)",u:"URL of the tool"},video:{a:"Person or channel that uploaded the video",c:"Platform (e.g. YouTube)"},film:{a:"Director: Surname, Given names",pub:"Production company"},podcast:{a:"Host: Surname, Given names",t:"Episode title",num:"Episode number (optional)",c:"Podcast name",pub:"Publisher or network (optional)"},social:{a:"Name or organisation, then the handle in brackets, e.g. NASA [@NASA]",t:"Text of the post (only the first 20 words are used)",dsc:"Description (e.g. Post, Image, Video)",c:"Site (e.g. X, Instagram)"},entry:{a:"Author or organisation (e.g. Merriam-Webster)",t:"Entry title",c:"Name of the dictionary or encyclopedia"},thesis:{c:"Database or archive (optional)"},other:{c:"Website name (optional)"},pc:{a:"Person: A. Surname",md:"Month and day"}};
+var X={book:{a:"Smith, John Adam",y:"2020",t:"Understanding economic growth",ed:"2nd",pub:"Example Press"},edbook:{a:"Brown, Mary\nGreen, Tom",y:"2019",t:"Studies in the novel",pub:"Example Publishing"},chapter:{a:"Lee, Kim",y:"2019",t:"Narrative voice in modern fiction",eds:"M. Brown & T. Green",c:"Studies in the novel",p:"45–67",pub:"Example Publishing"},journal:{a:"Nurlanov, Arman\nKim, Sofia",y:"2022",t:"Temperature and enzyme activity in yeast",c:"Journal of Example Biology",v:"14",i:"3",p:"210–225",u:"10.0000/example.2022.003"},magazine:{a:"Omarova, Dana",y:"2024",md:"May",t:"Why cities are getting hotter",c:"Example Science Monthly",v:"31",i:"5",p:"22–27"},news:{a:"Ivanova, Maria",y:"2025",md:"June 12",t:"New metro line opens in the capital",c:"The Example Times",u:"https://www.example.com/news/metro"},web:{a:"Example Statistics Agency",ab:"ESA",y:"2024",md:"March 5",t:"Population and housing data",u:"https://www.example.org/population"},report:{a:"Example Research Institute",y:"2023",t:"Energy use in Central Asia",num:"12",u:"https://www.example.org/energy-report"},data:{a:"Example Statistics Agency",y:"2024",t:"Monthly inflation, 2015–2024",u:"https://www.example.org/data/inflation"},aichat:{a:"OpenAI",y:"2026",md:"January 14",t:"Comparing models of enzyme kinetics",m:"ChatGPT",u:"https://chatgpt.com/share/example"},aitool:{a:"Anthropic",y:"2026",t:"Claude",u:"https://claude.ai"},video:{a:"Example Science Channel",y:"2021",md:"October 3",t:"How enzymes work",c:"YouTube",u:"https://www.youtube.com/watch?v=example"},film:{a:"Example, Daniyar",y:"1999",t:"An example film",pub:"Example Studio"},podcast:{a:"Akhmetova, Aigerim",y:"2025",md:"April 2",t:"What makes a good research question",num:"17",c:"The Example Research Podcast",u:"https://www.example.com/podcast/17"},social:{a:"Example Museum [@examplemuseum]",y:"2025",md:"February 10",t:"Today we open a new exhibition about the history of the Silk Road and the cities that grew along it across Central Asia",dsc:"Post",c:"X",u:"https://x.com/examplemuseum/status/1"},entry:{a:"Example Dictionary",t:"Resistivity",c:"Example online dictionary",r:"March 5, 2027",u:"https://www.example.com/dictionary/resistivity"},trans:{a:"Tolstoy, Leo",y:"2010",t:"Anna Karenina",tr:"A. Translator",pub:"Example Classics",oy:"1878"},thesis:{a:"Seitkali, Amina",y:"2021",t:"Water use in agriculture in the Syr Darya basin",tp:"Master’s thesis",uni:"Example University",u:"https://www.example.edu/theses/123"},other:{a:"Example Teacher, A.",y:"2026",md:"March 2",t:"Introduction to the extended essay",dsc:"PowerPoint slides",c:"Example School",u:"https://www.example.edu/slides/ee"},pc:{a:"A. Nurlanova",y:"2027",md:"March 5"}};
+var IT={book:1,edbook:1,web:1,report:1,data:1,aichat:1,aitool:1,video:1,film:1,social:1,trans:1,thesis:1,other:1};
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var ST=(function(){try{return JSON.parse(localStorage.getItem("apa7_tool_v1")||"{}")}catch(e){return{}}})();if(!ST.t)ST.t="book";if(!ST.v)ST.v={};if(!ST.list)ST.list=[];if(!ST.sel)ST.sel=[];
+function save(){try{localStorage.setItem("apa7_tool_v1",JSON.stringify(ST))}catch(e){}}
+function ini(g){return g.split(/\s+/).filter(Boolean).map(function(w){return w.split("-").map(function(p){return/^[A-Za-zА-Яа-яЁёӘәІіҢңҒғҮүҰұҚқӨөҺһ]\.$/.test(p)?p:p.charAt(0).toUpperCase()+"."}).join("-")}).join(" ")}
+function person(x){var i=x.indexOf(",");if(i<0)return null;var sur=x.slice(0,i).trim(),gv=x.slice(i+1).trim();return{s:sur,f:gv?sur+", "+ini(gv):sur}}
+function parse(a){return(a||"").split("\n").map(function(s){return s.trim()}).filter(Boolean).map(function(x){var p=person(x);return p?{n:p.f,s:p.s}:{n:x,s:x.replace(/\s*\[@[^\]]*\]/,""),org:1}})}
+function list(N){var n=N.map(function(x){return x.n});if(!n.length)return"";if(n.length==1)return n[0];if(n.length<=20)return n.slice(0,-1).join(", ")+", & "+n[n.length-1];return n.slice(0,19).join(", ")+", . . . "+n[n.length-1]}
+function dot(s){s=(s||"").trim();return!s?"":/[.?!]$/.test(s.replace(/<[^>]+>/g,""))?s:s+"."}
+function sent(t){var w=t.split(" "),cap=true;return w.map(function(x){var o;if(/[A-Z].*[A-Z]/.test(x.slice(1))||/^[A-Z]{2,}/.test(x)||/^[A-Z]\.$/.test(x))o=x;else o=cap?x.charAt(0).toUpperCase()+x.slice(1).toLowerCase():x.toLowerCase();cap=/[:?!]$/.test(x);return o}).join(" ")}
+function build(t,v,letter){v=v||{};var g=function(k){return(v[k]||"").trim()},N=parse(g("a")),A=esc(list(N)),Y=(g("y")||"n.d.")+(letter?(g("y")?"":"-")+letter:""),md=g("md"),D=esc(Y)+(md&&g("y")?", "+esc(md):""),u=g("u"),it=function(s){return s?"<i>"+s+"</i>":""};
+ if(/^10\./.test(u))u="https://doi.org/"+u;
+ var ti=esc(g("t")),tt=g("tt")?" ["+esc(g("tt"))+"]":"",TI=IT[t]?it(ti)+tt:ti+tt,R=g("r")?"Retrieved "+esc(g("r"))+", from ":"",U=u?R+esc(u):"",parts=[],c=esc(g("c")),pub=esc(g("pub")),pubok=pub&&g("pub")!=list(N);
+ if(t=="social"){var w=g("t").split(/\s+/).filter(Boolean);TI=it(esc(w.slice(0,20).join(" "))+(w.length>20?" . . .":""))}
+ if(t=="aitool")TI=it(ti);
+ var titleEl=function(extra){return dot(TI+(extra||""))};
+ if(t=="book")parts=[titleEl(g("ed")?" ("+esc(g("ed"))+" ed.)":""),dot(pub)];
+ else if(t=="edbook")parts=[titleEl(g("ed")?" ("+esc(g("ed"))+" ed.)":""),dot(pub)];
+ else if(t=="chapter"){var E=g("eds");parts=[dot(TI),"In "+(E?esc(E)+(/&|,/.test(E)?" (Eds.), ":" (Ed.), "):"")+it(c)+(g("p")?" (pp. "+esc(g("p"))+")":"")+".",dot(pub)]}
+ else if(t=="journal"||t=="magazine")parts=[dot(TI),it(c+(g("v")?", "+esc(g("v")):""))+(g("i")?"("+esc(g("i"))+")":"")+(g("p")?", "+esc(g("p")):"")+"."];
+ else if(t=="news")parts=[dot(TI),dot(it(c))];
+ else if(t=="web")parts=[dot(TI),c&&g("c")!=list(N)?dot(c):""];
+ else if(t=="report")parts=[titleEl(g("num")?" (Report No. "+esc(g("num"))+")":""),pubok?dot(pub):""];
+ else if(t=="data")parts=[TI+" [Data set].",pubok?dot(pub):""];
+ else if(t=="aichat")parts=[TI+" [Generative AI chat].",dot(esc(g("m")))];
+ else if(t=="aitool")parts=[TI+" [Large language model]."];
+ else if(t=="video")parts=[TI+" [Video].",dot(c||"YouTube")];
+ else if(t=="film")parts=[TI+" [Film].",dot(pub)];
+ else if(t=="podcast")parts=[TI+(g("num")?" (No. "+esc(g("num"))+")":"")+" [Audio podcast episode].","In "+dot(it(c)),dot(pub)];
+ else if(t=="social")parts=[TI+" ["+esc(g("dsc")||"Post")+"].",dot(c)];
+ else if(t=="entry")parts=[dot(TI),"In "+dot(it(c))];
+ else if(t=="trans")parts=[TI+(g("tr")?" ("+esc(g("tr"))+", Trans.)":"")+".",dot(pub)];
+ else if(t=="thesis")parts=[TI+" ["+esc(g("tp")||"Doctoral dissertation")+(g("uni")?", "+esc(g("uni")):"")+"].",dot(c)];
+ else if(t=="other")parts=[TI+(g("dsc")?" ["+esc(g("dsc"))+"]":"")+".",dot(c)];
+ var role=t=="edbook"?(N.length>1?" (Eds.)":" (Ed.)"):t=="film"?" (Director)":t=="podcast"?" (Host)":"",head,html;
+ if(A){head=dot(A+role)+" ("+D+").";html=head+" "+parts.filter(Boolean).join(" ")}
+ else{head=parts.shift()||"";html=head+" ("+D+"). "+parts.filter(Boolean).join(" ")}
+ html=(html.trim()+(U?" "+U:"")+(t=="trans"&&g("oy")?" (Original work published "+esc(g("oy"))+")":"")).replace(/\s+/g," ");
+ // in-text
+ var ab=g("ab"),y2=t=="trans"&&g("oy")?esc(g("oy"))+"/"+esc(Y):esc(Y),nm,nn,first="";
+ if(t=="pc"){var who=esc((N[0]&&N[0].n)||"A. Surname"),dd=esc(md||"Month Day");return{html:"",sort:"",p:"("+who+", personal communication, "+dd+", "+esc(g("y")||"Year")+")",n:who+" (personal communication, "+dd+", "+esc(g("y")||"Year")+")",q:"",first:""}}
+ if(!N.length){var st=IT[t]?it(ti):"“"+ti+"”";nm=nn=st||"Title"}
+ else if(N.length==1){nm=nn=esc(N[0].s)}else if(N.length==2){nm=esc(N[0].s)+" &amp; "+esc(N[1].s);nn=esc(N[0].s)+" and "+esc(N[1].s)}else{nm=nn=esc(N[0].s)+" et al."}
+ if(ab&&N.length==1&&N[0].org){first="First citation: ("+esc(N[0].s)+" ["+esc(ab)+"], "+y2+"); then ("+esc(ab)+", "+y2+")";nm=esc(ab);nn=esc(ab)}
+ var loc=t=="web"||t=="news"||t=="social"?"para. 3":t=="video"||t=="film"||t=="podcast"?"1:23":"p. 12";
+ return{html:html,sort:(A||ti).replace(/<[^>]+>/g,"").toLowerCase(),key:list(N),y:g("y"),p:"("+nm+", "+y2+")",n:nn+" ("+y2+")",q:t=="data"||t=="aitool"||t=="aichat"?"":"("+nm+", "+y2+", "+loc+")",first:first}}
+function fields(){var t=ST.t,F=T[t][1].split(","),o=O[t]||{};$("fs").innerHTML=F.map(function(k){var lab=o[k]||L[k],val=esc(ST.v[k]||"");return k=="a"?'<label style="grid-column:1/-1">'+lab+'<textarea rows="3" data-k="a">'+val+"</textarea></label>":"<label>"+lab+'<input data-k="'+k+'" value="'+val+'"></label>'}).join("");
+ $("fs").querySelectorAll("[data-k]").forEach(function(x){x.oninput=function(){ST.v[x.dataset.k]=x.value;save();pv()}})}
+function pv(){var r=build(ST.t,ST.v);$("msg").textContent="";
+ $("pv").innerHTML="<b>Reference list entry</b>"+(r.html?'<div class="ref" id="pref">'+r.html+"</div>":'<p class="hint">'+(ST.t=="pc"?"Personal communications are not included in the reference list.":"Fill in the fields to see the reference.")+"</p>")+"<b>In-text citation</b><div>Parenthetical: "+r.p+"</div><div>Narrative: "+r.n+"</div>"+(r.q?"<div>With a quotation: "+r.q+"</div>":"")+(r.first?'<div class="hint">'+r.first+"</div>":"")+(ST.t=="aichat"?'<div class="hint">Also describe in your essay how you used the AI tool, and follow your school’s rules on AI.</div>':"")}
+function letters(){var E=ST.list.map(function(e){return{e:e,r:build(e.t,e.v)}}),grp={};E.forEach(function(x){var k=x.r.key+"|"+x.r.y;(grp[k]=grp[k]||[]).push(x)});
+ Object.keys(grp).forEach(function(k){var G=grp[k];if(G.length>1&&G[0].r.key){G.sort(function(a,b){return(a.e.v.t||"").localeCompare(b.e.v.t||"")});G.forEach(function(x,i){x.r=build(x.e.t,x.e.v,"abcdefghijklmnopqrstuvwxyz".charAt(i))})}});
+ var yr=function(x){return x.r.y?2:1};
+ E.sort(function(a,b){return a.r.key&&b.r.key&&a.r.key==b.r.key?(yr(a)-yr(b)||(a.r.y||"").localeCompare(b.r.y||"")||a.r.html.localeCompare(b.r.html)):a.r.sort.localeCompare(b.r.sort)});return E}
+function ls(){var E=letters();$("ls").innerHTML=E.length?E.map(function(x){return'<div class="ent"><label style="display:inline;color:var(--tx)"><input type="checkbox" data-s="'+x.e.id+'" style="width:auto;margin:0 6px 0 0"'+(ST.sel.indexOf(x.e.id)>-1?" checked":"")+">"+T[x.e.t][0]+'</label><div class="ref">'+x.r.html+'</div><div class="it">'+x.r.p+" · "+x.r.n+'</div><button data-e="'+x.e.id+'">Edit</button><button data-d="'+x.e.id+'">Delete</button></div>'}).join(""):'<p class="hint">No sources yet.</p>';
+ $("ls").querySelectorAll("[data-e]").forEach(function(b){b.onclick=function(){var e=ST.list.filter(function(z){return z.id==b.dataset.e})[0];ST.t=e.t;ST.v=JSON.parse(JSON.stringify(e.v));ST.edit=e.id;save();$("ty").value=e.t;fields();pv();$("add").textContent="Save changes";window.scrollTo(0,0)}});
+ $("ls").querySelectorAll("[data-d]").forEach(function(b){b.onclick=function(){if(b.dataset.c!="1"){b.dataset.c="1";b.textContent="Click again to delete";return}ST.list=ST.list.filter(function(z){return z.id!=b.dataset.d});ST.sel=ST.sel.filter(function(z){return z!=b.dataset.d});save();ls()}});
+ $("ls").querySelectorAll("[data-s]").forEach(function(c){c.onchange=function(){var id=c.dataset.s;ST.sel=ST.sel.filter(function(z){return z!=id});if(c.checked)ST.sel.push(id);save();cmb()}});cmb()}
+function cmb(){var E=letters().filter(function(x){return ST.sel.indexOf(x.e.id)>-1});
+ $("cmb").innerHTML=E.length>1?"<b>Combined citation</b><div>("+E.map(function(x){return x.r.p.slice(1,-1)}).join("; ")+")</div>":'<span class="hint">Tick two or more sources in your list.</span>';
+ var oa=($("oa").value||"").trim(),oy=($("oy2").value||"").trim();
+ $("sec").innerHTML=E.length&&oa?"<b>Secondary source</b><div>("+esc(oa)+", "+esc(oy||"n.d.")+", as cited in "+E[0].r.p.slice(1,-1)+")</div><div class=\"hint\">Only the source you actually read ("+E[0].r.n+") goes in the reference list.</div>":'<span class="hint">Tick the source where you found it, then fill in the original author and year.</span>'}
+function cpyEl(el,b){try{var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);var ok=document.execCommand("copy");s.removeAllRanges();b.textContent=ok?"Copied ✓":"Select the text and copy"}catch(e){b.textContent="Select the text and copy"}}
+$("ty").innerHTML=Object.keys(T).map(function(k){return'<option value="'+k+'">'+T[k][0]+"</option>"}).join("");$("ty").value=ST.t;
+$("ty").onchange=function(){ST.t=this.value;ST.edit=null;$("add").textContent="Add to my reference list";save();fields();pv()};
+$("ex").onclick=function(){ST.v=JSON.parse(JSON.stringify(X[ST.t]));save();fields();pv()};
+$("clr").onclick=function(){ST.v={};ST.edit=null;$("add").textContent="Add to my reference list";save();fields();pv()};
+$("scs").onclick=function(){if(!ST.v.t||ST.t=="aitool")return;ST.v.t=sent(ST.v.t);save();fields();pv();$("msg").textContent=" Check proper nouns (names, places) — they must stay capitalised."};
+$("add").onclick=function(){var r=build(ST.t,ST.v);if(!r.html){$("msg").textContent=ST.t=="pc"?" Personal communications are cited in the text only.":" Fill in the fields first.";return}
+ if(ST.edit){ST.list.forEach(function(e){if(e.id==ST.edit){e.t=ST.t;e.v=JSON.parse(JSON.stringify(ST.v))}});ST.edit=null;$("add").textContent="Add to my reference list";$("msg").textContent=" Saved ✓"}
+ else{ST.list.push({id:"e"+Date.now(),t:ST.t,v:JSON.parse(JSON.stringify(ST.v))});$("msg").textContent=" Added ✓"}save();ls()};
+$("cpr").onclick=function(){if($("pref"))cpyEl($("pref"),$("cpr"))};
+$("cpl").onclick=function(){var E=letters();if(!E.length)return;var d=document.createElement("div");d.innerHTML="<p><b>References</b></p>"+E.map(function(x){return'<p style="padding-left:2em;text-indent:-2em">'+x.r.html+"</p>"}).join("");d.style.position="fixed";d.style.left="-9999px";document.body.appendChild(d);cpyEl(d,$("cpl"));document.body.removeChild(d)};
+$("cpt").onclick=function(){var E=letters();var t="References\n\n"+E.map(function(x){return x.r.html.replace(/<[^>]+>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"')}).join("\n");var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(a);$("cpt").textContent=ok?"Copied ✓":"Copy failed"};
+$("oa").oninput=cmb;$("oy2").oninput=cmb;
+fields();pv();ls();
+</script>
+<script src="site.js"></script>
+</body>
+</html>
