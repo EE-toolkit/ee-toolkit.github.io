@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("ee_theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EE Builder by subject · Конструктор EE</title>
 <style>
@@ -622,7 +623,7 @@ function apaBuild(t,v){v=v||{};var g=function(k){return(v[k]||"").trim()},L=g("a
  if(!N.length){pn=nn=it(T)||"Title"}else if(N.length==1){pn=nn=N[0]}else if(N.length==2){pn=N[0]+" & "+N[1];nn=N[0]+" and "+N[1]}else{pn=nn=N[0]+" et al."}
  return{html:html,p:"("+pn+", "+y2+")",n:nn+" ("+y2+")",q:t=="data"?"":"("+pn+", "+y2+", "+(t=="web"||t=="news"?"para. 3":t=="video"||t=="film"?"1:23":"p. 12")+")"}}
 function cpyEl(el,b){try{var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);var ok=document.execCommand("copy");s.removeAllRanges();b.textContent=ok?"Copied ✓":"Select the text and copy"}catch(e){b.textContent="Select the text and copy"}}
-function apa(){var e=$("apa");if(!e)return;e.innerHTML='<p><a href="apa7.html" target="_blank" rel="noopener" style="font-weight:600">Open the APA 7 reference builder ↗</a> · 20 source types (including generative AI chats under the September 2025 APA Style guidance), in-text citations, a reference list with a, b for same-year works, combined and “as cited in” citations.</p><div id="aptips"></div>';apaTips();return;if(!CU.apa)CU.apa={t:"book",v:{}};if(!CU.bib)CU.bib={};var A=CU.apa;
+function apa(){var e=$("apa");if(!e)return;e.innerHTML='<p><a href="apa7.html" style="font-weight:600">Open the APA 7 reference builder ↗</a> · 20 source types (including generative AI chats under the September 2025 APA Style guidance), in-text citations, a reference list with a, b for same-year works, combined and “as cited in” citations.</p><div id="aptips"></div>';apaTips();return;if(!CU.apa)CU.apa={t:"book",v:{}};if(!CU.bib)CU.bib={};var A=CU.apa;
  e.innerHTML='<div class="g"><label>Source type · Тип источника<select id="apt">'+Object.keys(APT).map(function(k){return'<option value="'+k+'"'+(A.t==k?" selected":"")+">"+APT[k][0]+"</option>"}).join("")+'</select></label></div><div class="g" id="apf" style="margin-top:6px"></div><p><button type="button" class="chip" id="apx">Load an invented example</button> <button type="button" class="chip" id="apc">Clear</button></p><div class="k" id="apo"></div><p><button type="button" class="chip" id="apadd">Add to my reference list</button> <button type="button" class="chip" id="apcp">Copy reference</button></p><div id="apb"></div><div id="aptips" style="margin-top:8px"></div>';
  apaForm();apaOut();apaList();apaTips();
  $("apt").onchange=function(){A.t=this.value;saveC();apaForm();apaOut()};
