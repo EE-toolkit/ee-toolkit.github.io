@@ -470,7 +470,7 @@ function fullDraft(){var L=SCW(S[sk]),TT=secTitles(),t="",tot=0;L.forEach(functi
 function bindW(){$("sec").querySelectorAll("[data-k]").forEach(function(t){t.oninput=function(){ANS[t.dataset.k]=t.value;saveA();var q=t.dataset.k.split("|");if(q[2]=="h"){var e=$("stt"+q[1]);if(e)e.textContent=(+q[1]+1)+". "+(t.value.trim()||DT[+q[1]])}upd(+q[1])}});$("sec").querySelectorAll("[data-cp]").forEach(function(b){b.onclick=function(){cpy($("cd"+b.dataset.cp),b)}});S[sk].sc.forEach(function(x,i){upd(i,true)});prog();fullDraft()}
 function SCW(s){var b=s.sc;if(s.ts===undefined)return b;var sh=Math.round((+$("th").value||40)/100*4000/50)*50,nt=4000-sh,ot=4000-b[s.ts][1],out=[],sum=0;b.forEach(function(x,i){var w=i==s.ts?sh:Math.round(x[1]*nt/ot/10)*10;out.push([x[0],w]);sum+=w});out[out.length-1][1]+=4000-sum;return out}
 var DT=[];
-function secTitles(noH){var s=S[sk],ty=TYS(),g=GRP[sk],op=OPT(),ai=0;return SCW(s).map(function(x,i){if(ty[i]!="an")return(op[4]&&op[4][i])?op[4][i][0]:x[0];var d=(op[2]||[])[ai++],h=noH?"":(ANS[sk+"|"+i+"|h"]||"").trim();if(h)return h;if(!d)return x[0];if(g=="l")return sk=="lkz"&&window.kzT?kzT(d):d;var m=x[0].match(/^Analysis \d[^:]*:\s*(.+)$/);return d+(m&&d.toLowerCase().indexOf(m[1].toLowerCase())<0?" ("+m[1]+")":"")})}
+function secTitles(noH){var s=S[sk],ty=TYS(),g=GRP[sk],op=OPT(),ai=0;return SCW(s).map(function(x,i){if(ty[i]!="an")return(op[4]&&op[4][i])?op[4][i][0]:x[0];var d=(op[2]||[])[ai++],h=noH?"":(ANS[sk+"|"+i+"|h"]||"").trim();if(h)return h;if(!d)return x[0];if(g=="l")return window.EE_T&&EE_T.on()?EE_T.t(d):d;var m=x[0].match(/^Analysis \d[^:]*:\s*(.+)$/);return d+(m&&d.toLowerCase().indexOf(m[1].toLowerCase())<0?" ("+m[1]+")":"")})}
 function blueprint(rq,v){
  var s=S[sk],ty=TYS(),g=GRP[sk],op=OPT(),ai=0,cum=0,cpi=0,h="",toc="",CP=[[1500,"Check-in 3","3"],[3000,"Interim reflection","4"],[4000,"Complete draft","5"]],
  terms=Object.keys(v).map(function(k){return v[k]}).filter(function(x){return x&&x.trim().length>1}).slice(0,5).join("; ");
@@ -662,5 +662,7 @@ fields();
 </script>
 <script src="site.js"></script>
 <script src="kz.js"></script>
+<script src="ru.js"></script>
+<script src="lang.js"></script>
 </body>
 </html>

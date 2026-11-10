@@ -1,5 +1,4 @@
-// Kazakh A: the builder page in Kazakh. When Kazakh A is chosen, every known English (or Russian) phrase on the page
-// is replaced with its Kazakh version; choosing another subject brings the original text back.
+// Kazakh A: the Kazakh wording of the builder page (used by lang.js when Kazakh A is chosen).
 // The Kazakh wording was generated and should be checked by a Kazakh A teacher.
 (function () {
   if (typeof S === 'undefined' || !S.lkz) return;
@@ -243,7 +242,6 @@
     'In this plan, work starts on ': 'Бұл жоспарда жұмыс басталатын күн: ',
     ' (already started)': ' (басталып кетті)', ' (today)': ' (бүгін)'
   };
-  var TK = Object.keys(TASKS).sort(function (a, b) { return b.length - a.length; });
   var DAYS = '(\\d+) days?(?: \\(≈(\\d+) weeks\\))?';
   var wk = function (d, w) { return d + ' күн' + (w ? ' (≈' + w + ' апта)' : ''); };
   var SUB = [
@@ -258,65 +256,6 @@
     [/(\d) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept?|Oct|Nov|Dec)\b/g, function (m, d, a) { return d + ' ' + MON[a]; }]
   ];
 
-  function sub(t) {
-    var o = t;
-    TK.forEach(function (k) { if (o.indexOf(k) >= 0) o = o.split(k).join(TASKS[k]); });
-    SUB.forEach(function (r) { o = o.replace(r[0], r[1]); });
-    return o;
-  }
-  function tr1(t) {
-    if (Object.prototype.hasOwnProperty.call(X, t)) return X[t];
-    var m = t.match(/^(\d+\.\s+)([^]+)$/);
-    if (m) { var r = tr1(m[2]); if (r != null) return m[1] + r; }
-    for (var i = 0; i < P.length; i++) if (t.indexOf(P[i][0]) === 0) return P[i][1] + t.slice(P[i][0].length);
-    for (var j = 0; j < R.length; j++) if (R[j][0].test(t)) return sub(t.replace(R[j][0], R[j][1]));
-    var o = sub(t);
-    return o !== t ? o : null;
-  }
-  // translate one piece of text, keeping its surrounding spaces
-  window.kzT = function (s) {
-    var t = String(s).trim();
-    if (!t) return s;
-    var r = tr1(t);
-    return r == null ? s : String(s).replace(t, r);
-  };
-
-  var ATTR = ['placeholder', 'title', 'data-l'];
-  var done = [];
-  var on = function () { return sk === 'lkz'; };
-  function doNode(n) {
-    if (n.nodeType === 3) {
-      if (n.__en != null || /^(SCRIPT|STYLE)$/.test(n.parentNode && n.parentNode.tagName)) return;
-      var v = kzT(n.nodeValue);
-      if (v !== n.nodeValue) { n.__en = n.nodeValue; n.nodeValue = v; done.push(n); }
-      return;
-    }
-    if (n.nodeType !== 1) return;
-    ATTR.forEach(function (a) {
-      var v = n.getAttribute(a);
-      if (!v || (n.__ena && n.__ena[a] != null)) return;
-      var k = kzT(v);
-      if (k !== v) { n.__ena = n.__ena || {}; n.__ena[a] = v; n.setAttribute(a, k); done.push(n); }
-    });
-    for (var c = n.firstChild; c; c = c.nextSibling) doNode(c);
-  }
-  function undo() {
-    done.forEach(function (n) {
-      if (n.nodeType === 3) { if (n.__en != null) { n.nodeValue = n.__en; n.__en = null; } }
-      else if (n.__ena) { Object.keys(n.__ena).forEach(function (a) { if (n.__ena[a] != null) n.setAttribute(a, n.__ena[a]); }); n.__ena = null; }
-    });
-    done = [];
-  }
-  var mo = new MutationObserver(function (list) {
-    if (!on()) return;
-    list.forEach(function (m) { m.addedNodes.forEach(doNode); });
-  });
-  function sync() {
-    document.documentElement.lang = on() ? 'kk' : 'en';
-    if (on()) doNode(document.body); else undo();
-  }
-  mo.observe(document.body, { childList: true, subtree: true });
-  var sel = document.getElementById('sub'), old = sel.onchange;
-  sel.onchange = function () { old.call(this); sync(); };
-  if (on()) { fields(); sync(); }
+  window.EE_LANG = window.EE_LANG || {};
+  EE_LANG.lkz = { lang: 'kk', X: X, P: P, R: R, TASKS: TASKS, SUB: SUB };
 })();
