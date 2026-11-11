@@ -99,6 +99,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
+<script src="compass-data.js"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -157,7 +158,7 @@ var CARDS={
   sup:A("Give feedback on one complete draft. The student makes the revisions.","Дайте отзыв на один полный черновик. Правки выполняет ученик.","Бір толық нұсқаға кері байланыс беріңіз; түзетуді оқушы орындайды.")}
 };
 
-// ---------- 3. subjects (prototype: Economics)
+// ---------- 3. subjects (Economics here, the rest in compass-data.js)
 var SUBJ=[["eco",A("Economics","Экономика","Экономика")],["mat",A("Mathematics","Математика","Математика")],["bm",A("Business Management","Бизнес-менеджмент","Бизнесті басқару")],["geo",A("Geography","География","География")],["dsoc",A("Digital Society","Цифровое общество","Цифрлық қоғам")],["his",A("History","История","Тарих")],["lta",A("Language A","Язык A","А тілі")],["ltb",A("Language B","Язык B","B тілі")],["phy",A("Physics","Физика","Физика")],["che",A("Chemistry","Химия","Химия")],["bio",A("Biology","Биология","Биология")],["cs",A("Computer Science","Информатика","Информатика")],["art",A("Visual Arts","Изобразительное искусство","Бейнелеу өнері")]];
 var SD={eco:{
  ch:[A("Market","Рынок","Нарық"),A("costs","затраты","шығын"),A("price changes","изменение цен","баға өзгерісі"),A("rival explanation","альтернативное объяснение","балама түсіндірме")],
@@ -199,6 +200,7 @@ var SD={eco:{
  svl:[A("Where is the economics?","Где здесь экономика?","Мұндағы экономика қайда?"),A("What else changed?","Что ещё изменилось?","Тағы не өзгерді?"),A("Is the market defined consistently?","Рынок определён последовательно?","Нарық бірізді анықталған ба?"),A("Does the conclusion claim more than the design supports?","Не утверждает ли заключение больше, чем позволяет дизайн исследования?","Қорытынды зерттеу дизайны мүмкіндік бергеннен көп нәрсе айтып тұрған жоқ па?")],
  follow:[A("Flour price changes","Изменения цен на муку","Ұн бағасының өзгерісі"),A("Timing of bread prices","Динамика цен на хлеб","Нан бағасының уақыты"),A("Competing cost shifts","Другие изменения издержек","Бәсекелес шығын өзгерістері"),A("Strength of association","Сила связи","Байланыс күші")]
 }};
+if(window.EE_CMP_SD)for(var sk in window.EE_CMP_SD)SD[sk]=window.EE_CMP_SD[sk];
 var SL={lens:A("The economics lens","Взгляд экономиста","Экономикалық көзқарас"),broad:A("Too broad","Слишком широко","Тым кең"),better:A("Better","Лучше","Жақсырақ"),other:A("Other directions worth testing","Другие направления","Басқа бағыттар"),
  ev:A("Evidence and measurement","Данные и измерение","Деректер мен өлшеу"),warn:A("Watch out","Осторожно","Абай болыңыз"),flow:A("A realistic workflow","Реалистичный порядок работы","Жұмыстың орындалатын реті"),bound:A("Interpretation boundary","Граница интерпретации","Түсіндіру шегі"),
  str:A("Structure of the essay","Структура эссе","Эссе құрылымы"),vis:A("Visual evidence","Наглядные данные","Көрнекі деректер"),svl:A("Supervisor questions","Вопросы руководителя","Жетекшінің сұрақтары"),follow:A("Follow the evidence through the essay","Как данные проходят через эссе","Дерек эссе бойымен қалай өтеді")};
@@ -279,7 +281,8 @@ function sec3(){var d=SD[SUB];
  var h='<section class="card" id="c3"><h2>3. '+esc(T(SEC[2]))+": "+esc(T(SUBJ.filter(function(s){return s[0]==SUB})[0][1]))+"</h2>"+chain(d.ch);
  h+='<div class="boxes">'+box("k1","rq",U.rq,d.rq)+box("k2","",U.task,d.task)+box("k3","",U.an,d.an)+box("k4","sup",U.svq,d.sv)+"</div>";
  h+='<p class="note">'+esc(T(U.placeholders))+"</p>";
- h+="<h3>🔎 "+esc(T(SL.lens))+"</h3><p style='margin:0'>"+esc(T(d.lens))+"</p>";
+ if(d.note)h+='<div class="box k1" style="margin-top:10px"><p>ℹ️ '+esc(T(d.note))+"</p></div>";
+ h+="<h3>🔎 "+esc(T(d.lensT||SL.lens))+"</h3><p style='margin:0'>"+esc(T(d.lens))+"</p>";
  h+='<div class="cmp"><div class="no"><b>✖ '+esc(T(SL.broad))+"</b>"+esc(T(d.broad))+'</div><div class="yes"><b>✔ '+esc(T(SL.better))+"</b>"+esc(T(d.better))+'<p style="margin:6px 0 0;font-weight:600">'+esc(T(d.better2))+"</p></div></div>";
  h+="<h3>🧭 "+esc(T(SL.other))+'</h3><div class="boxes">'+d.other.map(function(o,i){return box("k"+(i+2),"",o[0],o[1])}).join("")+"</div>";
  h+='<div class="meet">'+box("k2","",U.student,d.pstu)+box("k4","sup",U.supervisor,d.psup)+"</div>";
@@ -287,7 +290,7 @@ function sec3(){var d=SD[SUB];
  h+="<h3>"+esc(T(SL.warn))+'</h3><ul class="warnl">'+d.warn.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul>";
  h+="<h3>🛠 "+esc(T(SL.flow))+"</h3>"+steps(d.flow.map(function(f){return f[1]}),d.flow.map(function(f){return f[0]}));
  h+='<div class="box k3" style="margin-top:10px"><span class="lb">🚧 '+esc(T(SL.bound))+"</span><p>"+esc(T(d.bound))+"</p></div>";
- h+="<h3>🧱 "+esc(T(SL.str))+'</h3><p class="hint" style="margin-top:0">'+esc(T(d.strN))+'</p><div class="tl">'+d.str.map(function(s,i){return'<div class="k'+(i%4+1)+'"><b>'+esc(T(s[0]))+"</b>"+esc(T(s[1]))+"</div>"}).join("")+"</div>";
+ h+="<h3>🧱 "+esc(T(SL.str))+'</h3><p class="hint" style="margin-top:0">'+esc(T(d.strN||SD.eco.strN))+'</p><div class="tl">'+d.str.map(function(s,i){return'<div class="k'+(i%4+1)+'"><b>'+esc(T(s[0]))+"</b>"+esc(T(s[1]))+"</div>"}).join("")+"</div>";
  h+='<div class="meet">'+box("k2","",A("📊 "+SL.vis.en,"📊 "+SL.vis.ru,"📊 "+SL.vis.kz),d.vis)+'<div class="box k4 sup"><span class="lb">'+esc(T(SL.svl))+'</span><ul style="margin:0;padding-left:18px">'+d.svl.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul></div></div>";
  h+="<h3>"+esc(T(SL.follow))+"</h3>"+chain(d.follow);
  return h+"</section>"}
