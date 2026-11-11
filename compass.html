@@ -99,7 +99,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js?v=5"></script>
+<script src="compass-data.js?v=6"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -114,6 +114,7 @@ function save(){try{localStorage.setItem("ee_cmp_lang",LG);localStorage.setItem(
 var U={
  lead:A("A visual guide for students and supervisors: from a topic to a research question, from evidence to a finished essay.","Наглядный путеводитель для учеников и руководителей: от темы к исследовательскому вопросу, от данных к готовому эссе.","Оқушылар мен жетекшілерге арналған көрнекі нұсқаулық: тақырыптан зерттеу сұрағына дейін, деректен дайын эссеге дейін."),
  role:A("I am:","Я:","Мен:"),all:A("everyone","все","барлығы"),stu:A("a student","ученик","оқушы"),sup:A("a supervisor","руководитель","жетекші"),
+ forG:A("Adapted for:","Для группы предметов:","Пән тобы:"),
  words:A("words","слов","сөз"),
  subj:A("Subject:","Предмет:","Пән:"),soon:A("soon","скоро","жақында"),print:A("🖨 Print","🖨 Печать","🖨 Басып шығару"),
  f1:A("1 Foundation","1 Основа","1 Негіз"),f2:A("2 Approach","2 Подход","2 Тәсіл"),f3:A("3 Application","3 Применение","3 Қолдану"),
@@ -196,12 +197,13 @@ var SD={eco:{
       [A("Analysis","Анализ","Талдау"),A("Present trends, calculations and relationships, then explain them economically. Organise around mechanisms or sub-claims, not one section per source.","Покажите тренды, расчёты и связи, затем объясните их экономически. Стройте разделы вокруг механизмов или частных тезисов, а не по одному разделу на источник.","Трендтерді, есептеулер мен байланыстарды көрсетіп, оларды экономикалық тұрғыдан түсіндіріңіз. Бөлімдерді дереккөздер бойынша емес, механизмдер немесе жеке тезистер бойынша құрыңыз.")],
       [A("Evaluation","Оценка","Бағалау"),A("Weigh rival factors, short-run versus long-run effects and stakeholders. Evaluate the fit of the model and the strength of the evidence.","Взвесьте конкурирующие факторы, краткосрочные и долгосрочные эффекты и интересы сторон. Оцените, насколько подходит модель и насколько сильны данные.","Бәсекелес факторларды, қысқа және ұзақ мерзімді әсерлерді және мүдделі тараптарды салмақтаңыз. Модельдің сәйкестігін және деректердің күшін бағалаңыз.")],
       [A("Conclusion","Заключение","Қорытынды"),A("Give a qualified answer for the defined market and period. Explain what can and cannot be inferred about the mechanism; add no new data.","Дайте взвешенный ответ для выбранного рынка и периода. Объясните, что можно и чего нельзя заключить о механизме; новых данных не добавляйте.","Таңдалған нарық пен кезең үшін салмақты жауап беріңіз. Механизм туралы не айтуға болатынын және болмайтынын түсіндіріңіз; жаңа дерек қоспаңыз.")]],
- strN:A("Section titles and lengths are suggestions, not IB rules.","Названия и объём разделов — рекомендации, а не правила IB.","Бөлім атаулары мен көлемі — IB ережесі емес, ұсыныс."),
+ strN:A("Section titles and lengths are suggestions, not IB rules. The Builder offers other layouts of the analysis sections (by argument, by time, comparative) with the same total.","Названия и объём разделов — рекомендации, а не правила IB. В конструкторе есть и другие варианты аналитической части (по аргументам, по времени, сравнительный) с тем же общим объёмом.","Бөлім атаулары мен көлемі — IB ережесі емес, ұсыныс. Конструкторда талдау бөлімінің басқа нұсқалары да бар (дәлелдер бойынша, уақыт бойынша, салыстырмалы), жалпы көлемі бірдей."),
  vis:A("Aligned time-series charts; changes rather than only levels; a carefully labelled market diagram; a small table of competing explanations.","Совмещённые графики временных рядов; изменения, а не только уровни; аккуратно подписанная диаграмма рынка; небольшая таблица конкурирующих объяснений.","Қатар қойылған уақыт қатарларының графиктері; тек деңгей емес, өзгерістер; мұқият белгіленген нарық диаграммасы; бәсекелес түсіндірмелердің шағын кестесі."),
  svl:[A("Where is the economics?","Где здесь экономика?","Мұндағы экономика қайда?"),A("What else changed?","Что ещё изменилось?","Тағы не өзгерді?"),A("Is the market defined consistently?","Рынок определён последовательно?","Нарық бірізді анықталған ба?"),A("Does the conclusion claim more than the design supports?","Не утверждает ли заключение больше, чем позволяет дизайн исследования?","Қорытынды зерттеу дизайны мүмкіндік бергеннен көп нәрсе айтып тұрған жоқ па?")],
  follow:[A("Flour price changes","Изменения цен на муку","Ұн бағасының өзгерісі"),A("Timing of bread prices","Динамика цен на хлеб","Нан бағасының уақыты"),A("Competing cost shifts","Другие изменения издержек","Бәсекелес шығын өзгерістері"),A("Strength of association","Сила связи","Байланыс күші")]
 }};
 if(window.EE_CMP_SD)for(var sk in window.EE_CMP_SD)SD[sk]=window.EE_CMP_SD[sk];
+if(window.EE_CMP_ECOSTR)SD.eco.str=window.EE_CMP_ECOSTR;
 var SL={lens:A("The economics lens","Взгляд экономиста","Экономикалық көзқарас"),broad:A("Too broad","Слишком широко","Тым кең"),better:A("Better","Лучше","Жақсырақ"),other:A("Other directions worth testing","Другие направления","Басқа бағыттар"),
  ev:A("Evidence and measurement","Данные и измерение","Деректер мен өлшеу"),warn:A("Watch out","Осторожно","Абай болыңыз"),flow:A("A realistic workflow","Реалистичный порядок работы","Жұмыстың орындалатын реті"),bound:A("Interpretation boundary","Граница интерпретации","Түсіндіру шегі"),
  str:A("Structure of the essay","Структура эссе","Эссе құрылымы"),vis:A("Visual evidence","Наглядные данные","Көрнекі деректер"),svl:A("Supervisor questions","Вопросы руководителя","Жетекшінің сұрақтары"),follow:A("Follow the evidence through the essay","Как данные проходят через эссе","Дерек эссе бойымен қалай өтеді")};
@@ -266,6 +268,9 @@ function steps(a,labs){return'<div class="steps">'+a.map(function(x,i){return'<d
 function meet(stu,sup){return'<div class="meet">'+box("k2","",U.atS,stu)+box("k4","sup",U.atV,sup)+"</div>"}
 function cardBlock(c){return"<h3>"+esc(T(c.t))+"</h3>"+chain(c.ch)+steps(c.s,[U.f1,U.f2,U.f3])+meet(c.stu,c.sup)}
 
+function grp(){return(window.EE_CMP_GRP||{})[SUB]}
+function card(k){var g=grp(),o=g&&window.EE_CMP_GC&&window.EE_CMP_GC[g]&&window.EE_CMP_GC[g][k];return o?{t:CARDS[k].t,ch:CARDS[k].ch,s:o.s,stu:o.stu,sup:o.sup}:CARDS[k]}
+function gcard(k){var g=grp(),h=cardBlock(card(k));if(!g||!window.EE_CMP_GC)return h;return h.replace("</h3>","</h3><p class=\"hint\" style=\"margin:0 0 6px\">🎯 "+esc(T(U.forG))+" "+esc(T(window.EE_CMP_GC[g].name))+"</p>")}
 // collected for the role panels
 var TODO=[],SHEET=[];
 function addTodo(g,id,x){TODO.push([g,id,x])}
@@ -275,9 +280,9 @@ function sec1(){var r=ROUTE[RS],k="k"+(RS+1);
  var h='<section class="card" id="c1"><h2>1. '+esc(T(SEC[0]))+'</h2><p class="hint">'+esc(T(A("Four steps from the EE guide (2027). Tap a step.","Четыре шага из EE guide (2027). Нажмите на шаг.","EE guide (2027) ұсынатын төрт қадам. Қадамды басыңыз.")))+"</p>";
  h+='<div class="route">'+ROUTE.map(function(x,i){return'<button type="button" class="k'+(i+1)+(i==RS?" on":"")+'" data-rs="'+i+'"><span class="n">'+(i+1)+"</span>"+esc(T(x.h))+"</button>"}).join("")+"</div>";
  h+='<div class="rdet '+k+'"><b>'+esc(T(r.h))+"</b><p style='margin:4px 0 0'>"+esc(T(r.p))+"</p>"+(r.l?"<ul>"+r.l.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul>":"")+'<div class="src">EE guide 2027, figure 13</div></div>';
- h+=cardBlock(CARDS.rq)+'<a class="cta" href="index.html#s2">'+esc(T(ROLE=="sup"?U.toBuilderSup:U.toBuilder))+"</a></section>";
+ h+=gcard("rq")+'<a class="cta" href="index.html#s2">'+esc(T(ROLE=="sup"?U.toBuilderSup:U.toBuilder))+"</a></section>";
  return h}
-function sec2(){return'<section class="card" id="c2"><h2>2. '+esc(T(SEC[1]))+"</h2>"+cardBlock(CARDS.ev).replace(/^<h3>/,'<h3 style="margin-top:4px">')+"</section>"}
+function sec2(){return'<section class="card" id="c2"><h2>2. '+esc(T(SEC[1]))+"</h2>"+gcard("ev").replace(/^<h3>/,'<h3 style="margin-top:4px">')+"</section>"}
 function sec3(){var d=SD[SUB];
  var h='<section class="card" id="c3"><h2>3. '+esc(T(SEC[2]))+": "+esc(T(SUBJ.filter(function(s){return s[0]==SUB})[0][1]))+"</h2>"+chain(d.ch);
  h+='<div class="boxes">'+box("k1","rq",U.rq,d.rq)+box("k2","",U.task,d.task)+box("k3","",U.an,d.an)+box("k4","sup",U.svq,d.sv)+"</div>";
@@ -311,8 +316,8 @@ function sec5(){var h='<section class="card" id="c5"><h2>5. '+esc(T(SEC[4]))+"</
 // role panels: student checklist and supervisor sheet (built from the same data)
 function collect(){TODO=[];SHEET=[];
  var g1=SEC[0],g2=SEC[1],g3=SEC[2],g4=SEC[3],g5=SEC[4];
- CARDS.rq.s.forEach(function(x,i){addTodo(g1,"rq"+i,x)});addTodo(g1,"rqm",CARDS.rq.stu);addSheet(g1,CARDS.rq.sup);
- CARDS.ev.s.forEach(function(x,i){addTodo(g2,"ev"+i,x)});addTodo(g2,"evm",CARDS.ev.stu);addSheet(g2,CARDS.ev.sup);
+ var gk=grp()||"",cr=card("rq"),ce=card("ev");cr.s.forEach(function(x,i){addTodo(g1,"rq"+gk+i,x)});addTodo(g1,"rqm"+gk,cr.stu);addSheet(g1,cr.sup);
+ ce.s.forEach(function(x,i){addTodo(g2,"ev"+gk+i,x)});addTodo(g2,"evm"+gk,ce.stu);addSheet(g2,ce.sup);
  var d=SD[SUB];addTodo(g3,SUB+"t",d.task);addTodo(g3,SUB+"a",d.an);addTodo(g3,SUB+"p",d.pstu);d.flow.forEach(function(f,i){addTodo(g3,SUB+"f"+i,f[0])});
  addSheet(g3,d.sv);addSheet(g3,d.psup);d.svl.forEach(function(x){addSheet(g3,x)});
  WR.forEach(function(w,i){addTodo(g4,"w"+i,A(w.t.en+": "+w.stu.en,w.t.ru+": "+w.stu.ru,w.t.kz+": "+w.stu.kz));addSheet(g4,A(w.t.en+": "+w.sup.en,w.t.ru+": "+w.sup.ru,w.t.kz+": "+w.sup.kz))});
