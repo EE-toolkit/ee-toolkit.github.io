@@ -99,7 +99,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js"></script>
+<script src="compass-data.js?v=4"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -297,7 +297,7 @@ function sec3(){var d=SD[SUB];
 function sec4(){var w=WR[WT];
  var h='<section class="card" id="c4"><h2>4. '+esc(T(SEC[3]))+'</h2><div class="tabs">'+WR.map(function(x,i){return'<button type="button" data-wt="'+i+'"'+(i==WT?' class="on"':"")+">"+esc(T(x.t))+"</button>"}).join("")+"</div>";
  h+="<p style='margin:4px 0'><b>"+esc(T(w.lead))+"</b></p>"+chain(w.ch)+"<h3>"+esc(T(U.seq))+"</h3>"+steps(w.s);
- h+="<h3>"+esc(T(U.wex))+'</h3><p class="hint" style="margin:0">'+esc(T(U.tap))+'</p><div class="leg">'+w.roles.map(function(r){return'<button type="button" class="'+r[0]+'" data-hl="'+r[0]+'">'+esc(T(r[1]))+"</button>"}).join("")+'</div><div class="exm" id="exm">'+(w.ex[LG]||w.ex.en).map(function(p){return p[0]?'<span class="hl '+p[0]+'" data-r="'+p[0]+'">'+esc(p[1])+"</span>":esc(p[1])}).join("")+"</div>";
+ h+="<h3>"+esc(T(U.wex))+'</h3><p class="hint" style="margin:0">'+esc(T(U.tap))+'</p><div class="leg">'+w.roles.map(function(r){return'<button type="button" class="'+r[0]+'" data-hl="'+r[0]+'">'+esc(T(r[1]))+"</button>"}).join("")+'</div><div class="exm" id="exm">'+(function(e){return e[LG]||e.en})((SD[SUB].wex&&SD[SUB].wex[WT])||w.ex).map(function(p){return p[0]?'<span class="hl '+p[0]+'" data-r="'+p[0]+'">'+esc(p[1])+"</span>":esc(p[1])}).join("")+"</div>";
  h+='<p class="hint" style="margin:6px 0 0"><b>'+esc(T(U.rex))+":</b> "+esc(T(w.rd))+"</p>"+'<div class="meet">'+box("k2","",U.student,w.stu)+box("k4","sup",U.supervisor,w.sup)+"</div>";
  return h+"</section>"}
 function sec5(){var h='<section class="card" id="c5"><h2>5. '+esc(T(SEC[4]))+"</h2>"+cardBlock(CARDS.meet).replace(/^<h3>/,'<h3 style="margin-top:4px">');
@@ -331,7 +331,7 @@ function render(){document.documentElement.lang=LG=="kz"?"kk":LG;
  document.getElementById("credit").textContent=T(U.credit);
  document.querySelectorAll("#lang button").forEach(function(b){b.classList.toggle("on",b.dataset.v==LG)});
  document.querySelectorAll("#role button").forEach(function(b){b.classList.toggle("on",b.dataset.v==ROLE);b.textContent=T(U[b.dataset.v])});
- document.getElementById("subj").innerHTML=SUBJ.map(function(s){return'<option value="'+s[0]+'"'+(SD[s[0]]?"":" disabled")+(s[0]==SUB?" selected":"")+">"+esc(T(s[1]))+(SD[s[0]]?"":" ("+esc(T(U.soon))+")")+"</option>"}).join("");
+ document.getElementById("subj").innerHTML=SUBJ.filter(function(s){return SD[s[0]]}).map(function(s){return'<option value="'+s[0]+'"'+(SD[s[0]]?"":" disabled")+(s[0]==SUB?" selected":"")+">"+esc(T(s[1]))+(SD[s[0]]?"":" ("+esc(T(U.soon))+")")+"</option>"}).join("");
  document.getElementById("toc").innerHTML=(ROLE=="all"?"":'<a href="#c0">'+(ROLE=="stu"?"✅ "+esc(T(U.todoT)):"👩‍🏫 "+esc(T(U.sheetT)))+"</a>")+SEC.map(function(s,i){return'<a href="#c'+(i+1)+'">'+(i+1)+". "+esc(T(s))+"</a>"}).join("");
  document.getElementById("app").innerHTML=panel()+sec1()+sec2()+sec3()+sec4()+sec5();
  document.querySelectorAll("[data-rs]").forEach(function(b){b.onclick=function(){RS=+b.dataset.rs;render()}});
