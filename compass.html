@@ -99,7 +99,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js?v=4"></script>
+<script src="compass-data.js?v=5"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -114,6 +114,7 @@ function save(){try{localStorage.setItem("ee_cmp_lang",LG);localStorage.setItem(
 var U={
  lead:A("A visual guide for students and supervisors: from a topic to a research question, from evidence to a finished essay.","Наглядный путеводитель для учеников и руководителей: от темы к исследовательскому вопросу, от данных к готовому эссе.","Оқушылар мен жетекшілерге арналған көрнекі нұсқаулық: тақырыптан зерттеу сұрағына дейін, деректен дайын эссеге дейін."),
  role:A("I am:","Я:","Мен:"),all:A("everyone","все","барлығы"),stu:A("a student","ученик","оқушы"),sup:A("a supervisor","руководитель","жетекші"),
+ words:A("words","слов","сөз"),
  subj:A("Subject:","Предмет:","Пән:"),soon:A("soon","скоро","жақында"),print:A("🖨 Print","🖨 Печать","🖨 Басып шығару"),
  f1:A("1 Foundation","1 Основа","1 Негіз"),f2:A("2 Approach","2 Подход","2 Тәсіл"),f3:A("3 Application","3 Применение","3 Қолдану"),
  atS:A("At the meeting · student","На встрече · ученик","Кездесуде · оқушы"),atV:A("At the meeting · supervisor","На встрече · руководитель","Кездесуде · жетекші"),
@@ -290,7 +291,7 @@ function sec3(){var d=SD[SUB];
  h+="<h3>"+esc(T(SL.warn))+'</h3><ul class="warnl">'+d.warn.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul>";
  h+="<h3>🛠 "+esc(T(SL.flow))+"</h3>"+steps(d.flow.map(function(f){return f[1]}),d.flow.map(function(f){return f[0]}));
  h+='<div class="box k3" style="margin-top:10px"><span class="lb">🚧 '+esc(T(SL.bound))+"</span><p>"+esc(T(d.bound))+"</p></div>";
- h+="<h3>🧱 "+esc(T(SL.str))+'</h3><p class="hint" style="margin-top:0">'+esc(T(d.strN||SD.eco.strN))+'</p><div class="tl">'+d.str.map(function(s,i){return'<div class="k'+(i%4+1)+'"><b>'+esc(T(s[0]))+"</b>"+esc(T(s[1]))+"</div>"}).join("")+"</div>";
+ h+="<h3>🧱 "+esc(T(SL.str))+'</h3><p class="hint" style="margin-top:0">'+esc(T(d.strN||SD.eco.strN))+'</p><div class="tl">'+d.str.map(function(s,i){return'<div class="k'+(i%4+1)+'"><b>'+esc(T(s[0]))+(s[2]?" · ~"+s[2]+" "+esc(T(U.words)):"")+"</b>"+esc(T(s[1]))+"</div>"}).join("")+"</div>";
  h+='<div class="meet">'+box("k2","",A("📊 "+SL.vis.en,"📊 "+SL.vis.ru,"📊 "+SL.vis.kz),d.vis)+'<div class="box k4 sup"><span class="lb">'+esc(T(SL.svl))+'</span><ul style="margin:0;padding-left:18px">'+d.svl.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul></div></div>";
  h+="<h3>"+esc(T(SL.follow))+"</h3>"+chain(d.follow);
  return h+"</section>"}
