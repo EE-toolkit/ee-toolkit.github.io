@@ -44,6 +44,7 @@
     'Research direction · Направление': 'Направление исследования', 'Custom': 'Своё',
     'Pick a direction to fill the fields with a coherent set of variables, then adjust them. ✓ = approved by a teacher, ⚠ = marked for revision.':
       'Выберите направление, чтобы заполнить поля согласованным набором значений, затем измените их. ✓ = одобрено учителем, ⚠ = отмечено для доработки.',
+    'No suggestions: type your own': 'Подсказок нет: введите своё', 'My options': 'Мои варианты', 'Save to my options': 'Сохранить в мои варианты', 'Remove from my options': 'Убрать из моих вариантов',
     'Add': 'Добавить', '+ add my own': '+ добавить своё', 'Remove': 'Удалить', '× remove': '× удалить',
     'Save the text typed here, or the current text of the field above, to your list': 'Сохранить в свой список текст, введённый здесь, или текущий текст поля выше',
     // 2. question
@@ -211,6 +212,7 @@
     [/^(\d+) words?$/, function (m, n) { return n + ' ' + words(n); }],
     [/^(\d+) words? written so far$/, function (m, n) { return 'Пока написано: ' + n + ' ' + words(n); }],
     [/^Paragraph (\d+)$/, 'Абзац $1'],
+    [/^▾ Choose a suggestion \((\d+)\)$/, '▾ Выберите подсказку ($1)'],
     [/^(.+) · ([\d,]+) words by (.+)$/, function (m, a, n, d) { return a + ' · ' + n.replace(',', '') + ' слов к ' + d; }],
     [/^in (\d+) days?(?: \(≈(\d+) weeks\))?$/, function (m, d, w) { return 'через ' + dw(d, w); }],
     [/^(\d+) days?(?: \(≈(\d+) weeks\))? ago$/, function (m, d, w) { return dw(d, w) + ' назад'; }],
@@ -235,8 +237,8 @@
     'Check-in 4: supervisor feedback': 'Встреча 4: отзыв руководителя',
     'Revisions; Check-in 5': 'Правки; встреча 5',
     'Final submission + viva (RPPF final)': 'Итоговая сдача + viva voce (итог RPPF)',
-    ' Tap a suggestion under a field to fill it, then adjust the values. You can also add your own option under any field (type it and press Add): it is saved in this browser.':
-      ' Нажмите на подсказку под полем, чтобы заполнить его, затем измените значения. Под любым полем можно добавить свой вариант (введите и нажмите «Добавить»): он сохранится в этом браузере.',
+    ' Pick a value from the list above a field, then adjust it in the field if needed. To keep your own value, type it and press ☆: it is added to “My options” in the list and saved in this browser.':
+      ' Выберите значение из списка над полем и при необходимости поправьте его в самом поле. Чтобы сохранить своё значение, введите его и нажмите ☆: оно появится в списке в разделе «Мои варианты» и сохранится в этом браузере.',
     'Nothing is scheduled for today. Next: ': 'На сегодня ничего не запланировано. Дальше: ',
     'In this plan, work starts on ': 'По этому плану работа начинается ',
     ' (already started)': ' (уже началась)', ' (today)': ' (сегодня)'

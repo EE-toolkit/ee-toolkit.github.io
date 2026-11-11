@@ -30,7 +30,7 @@
   window.EE_T = { on: function () { return !!EE_LANG[sk]; }, t: function (s) { return EE_LANG[sk] ? (D = EE_LANG[sk], T(s)) : s; } };
   Object.keys(EE_LANG).forEach(function (k) { var d = EE_LANG[k]; d.TK = Object.keys(d.TASKS).sort(function (a, b) { return b.length - a.length; }); });
 
-  var ATTR = ['placeholder', 'title', 'data-l'];
+  var ATTR = ['placeholder', 'title', 'data-l', 'label'];
   var done = [];
   function doNode(n) {
     if (n.nodeType === 3) {
@@ -57,8 +57,13 @@
   }
   new MutationObserver(function (list) {
     if (!D) return;
-    list.forEach(function (m) { m.addedNodes.forEach(doNode); });
-  }).observe(document.body, { childList: true, subtree: true });
+    list.forEach(function (m) {
+      if (m.type !== 'attributes') return m.addedNodes.forEach(doNode);
+      // a hint changed after the page was drawn (e.g. ☆ / ★): translate the new text
+      var n = m.target, a = m.attributeName, v = n.getAttribute(a), k = v && T(v);
+      if (k && k !== v) { n.__ena = n.__ena || {}; n.__ena[a] = v; n.setAttribute(a, k); done.push(n); }
+    });
+  }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['title', 'placeholder'] });
   function sync() {
     undo();
     D = EE_LANG[sk] || null;

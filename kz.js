@@ -48,6 +48,7 @@
     'Research direction · Направление': 'Зерттеу бағыты', 'Custom': 'Өзім',
     'Pick a direction to fill the fields with a coherent set of variables, then adjust them. ✓ = approved by a teacher, ⚠ = marked for revision.':
       'Өрістерді үйлесімді мәндермен толтыру үшін бағытты таңдаңыз, содан кейін оларды өзгертіңіз. ✓ = мұғалім бекіткен, ⚠ = түзетуге белгіленген.',
+    'No suggestions: type your own': 'Ұсыныс жоқ: өзіңіз жазыңыз', 'My options': 'Менің нұсқаларым', 'Save to my options': 'Менің нұсқаларыма сақтау', 'Remove from my options': 'Менің нұсқаларымнан алып тастау',
     'Add': 'Қосу', '+ add my own': '+ өзімдікін қосу', 'Remove': 'Өшіру', '× remove': '× өшіру',
     'Save the text typed here, or the current text of the field above, to your list': 'Осында жазылған мәтінді немесе жоғарыдағы өрістің мәтінін тізіміңізге сақтау',
     // 2. question
@@ -210,6 +211,7 @@
     [/^(\d+) words?$/, '$1 сөз'],
     [/^(\d+) words? written so far$/, 'Әзірге $1 сөз жазылды'],
     [/^Paragraph (\d+)$/, '$1-абзац'],
+    [/^▾ Choose a suggestion \((\d+)\)$/, '▾ Ұсынысты таңдаңыз ($1)'],
     [/^(.+) · ([\d,]+) words by (.+)$/, function (m, a, n, d) { return a + ' · ' + d + ' дейін ' + n.replace(',', '') + ' сөз'; }],
     [/^in (\d+) days? \(≈(\d+) weeks\)$/, '$1 күннен кейін (≈$2 апта)'],
     [/^in (\d+) days?$/, '$1 күннен кейін'],
@@ -236,8 +238,8 @@
     'Check-in 4: supervisor feedback': 'Бақылау кездесуі 4: жетекшінің пікірі',
     'Revisions; Check-in 5': 'Түзетулер; бақылау кездесуі 5',
     'Final submission + viva (RPPF final)': 'Қорытынды тапсыру + viva voce (RPPF қорытынды)',
-    ' Tap a suggestion under a field to fill it, then adjust the values. You can also add your own option under any field (type it and press Add): it is saved in this browser.':
-      ' Өрісті толтыру үшін оның астындағы ұсынысты басыңыз, содан кейін мәндерді өзгертіңіз. Кез келген өріске өз нұсқаңызды қоса аласыз (жазып, «Қосу» батырмасын басыңыз): ол осы браузерде сақталады.',
+    ' Pick a value from the list above a field, then adjust it in the field if needed. To keep your own value, type it and press ☆: it is added to “My options” in the list and saved in this browser.':
+      ' Өрістің үстіндегі тізімнен мәнді таңдап, қажет болса, өрістің өзінде түзетіңіз. Өз мәніңізді сақтау үшін оны жазып, ☆ батырмасын басыңыз: ол тізімдегі «Менің нұсқаларым» бөліміне қосылып, осы браузерде сақталады.',
     'Nothing is scheduled for today. Next: ': 'Бүгінге ештеңе жоспарланбаған. Келесісі: ',
     'In this plan, work starts on ': 'Бұл жоспарда жұмыс басталатын күн: ',
     ' (already started)': ' (басталып кетті)', ' (today)': ' (бүгін)'
