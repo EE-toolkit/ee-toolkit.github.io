@@ -5,7 +5,7 @@
   var KEYS = ['ee_ans_v1', 'ee_custom_v1', 'apa7_tool_v1', 'ee_cmp_v1'];
   var page = location.pathname.split('/').pop() || 'index.html';
   var root = document.documentElement;
-  var links = [['index.html', '🔬', 'EE Builder', 'Builder'], ['subject-chooser.html', '🧭', 'Which subject?', 'Subject'], ['apa7.html', '📚', 'APA 7 references', 'APA 7']];
+  var links = [['index.html', '🔬', 'EE Builder', 'Builder'], ['subject-chooser.html', '🧭', 'Which subject?', 'Subject'], ['apa7.html', '📚', 'APA 7 references', 'APA 7'], ['compass.html', '🗺️', 'EE Compass', 'Compass']];
   // the builder's sections (its cards, in order) and their short names
   var SECTIONS = ['Subject', 'Question', 'Variables', 'Sources', 'Blueprint', 'Time left', 'Citations', 'Examples', 'Diary'];
 
@@ -27,6 +27,7 @@
     '.ee-up.show{display:block}' +
     '.ee-short{display:none}' +
     '@media (max-width:560px){.ee-brand{display:none}.ee-long{display:none}.ee-short{display:inline}.ee-pages a{padding:6px 8px}}' +
+    '@media (max-width:420px){.ee-bar{padding:8px 12px;gap:4px}.ee-pages{gap:2px;overflow-x:auto;scrollbar-width:none}.ee-pages::-webkit-scrollbar{display:none}.ee-pages a{padding:6px 6px;font-size:13px}.ee-em{display:none}.ee-ic{padding:6px 7px}}' +
     '.site-foot{max-width:980px;margin:32px auto 0;padding:20px 16px 72px;border-top:1px solid var(--line,#ddd);color:var(--mut,#667085);font-size:14px;line-height:1.5}' +
     '.site-foot .save{background:var(--card,#fff);border:1px solid var(--line,#ddd);border-radius:10px;padding:12px 14px;margin-bottom:14px;scroll-margin-top:120px}' +
     '.site-foot .save b{color:var(--tx,#1d2330)}' +
@@ -38,7 +39,7 @@
   var top = document.createElement('header');
   top.className = 'ee-top';
   top.innerHTML = '<div class="ee-bar"><a class="ee-brand" href="index.html">EE Toolkit</a><nav class="ee-pages">' +
-    links.map(function (l) { return '<a href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '>' + l[1] + ' <span class="ee-long">' + l[2] + '</span><span class="ee-short">' + l[3] + '</span></a>'; }).join('') +
+    links.map(function (l) { return '<a href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '><span class="ee-em">' + l[1] + ' </span><span class="ee-long">' + l[2] + '</span><span class="ee-short">' + l[3] + '</span></a>'; }).join('') +
     '</nav><button type="button" class="ee-ic" id="ee-save" title="Save my work to a file" aria-label="Save my work">💾</button>' +
     '<button type="button" class="ee-ic" id="ee-theme" aria-label="Light or dark theme"></button></div>';
   document.body.insertBefore(top, document.body.firstChild);
