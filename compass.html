@@ -341,7 +341,8 @@ function render(){document.documentElement.lang=LG=="kz"?"kk":LG;
  save()}
 document.querySelectorAll("#lang button").forEach(function(b){b.onclick=function(){LG=b.dataset.v;render()}});
 document.querySelectorAll("#role button").forEach(function(b){b.onclick=function(){ROLE=b.dataset.v;render()}});
-document.getElementById("subj").onchange=function(){SUB=this.value;try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
+var SUBLG={kza:"kz",rua:"ru"};
+document.getElementById("subj").onchange=function(){SUB=this.value;if(SUBLG[SUB])LG=SUBLG[SUB];try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
 document.getElementById("print").onclick=function(){print()};
 render();
 if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView()}
