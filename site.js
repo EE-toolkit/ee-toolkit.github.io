@@ -2,7 +2,7 @@
 // also a row that jumps to its sections), the "back to top" button, and the footer (saving the student's work —
 // everything is kept only in this browser — and the notes about the content).
 (function () {
-  var KEYS = ['ee_ans_v1', 'ee_custom_v1', 'apa7_tool_v1'];
+  var KEYS = ['ee_ans_v1', 'ee_custom_v1', 'apa7_tool_v1', 'ee_cmp_v1'];
   var page = location.pathname.split('/').pop() || 'index.html';
   var root = document.documentElement;
   var links = [['index.html', '🔬', 'EE Builder', 'Builder'], ['subject-chooser.html', '🧭', 'Which subject?', 'Subject'], ['apa7.html', '📚', 'APA 7 references', 'APA 7']];

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("ee_theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EE Compass</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--tx:#1d2330;--mut:#667085;--line:#e3e5ea;--ac:#2563eb;--crit:#dc2626;--ok:#16a34a;--c1:#2563eb;--c2:#0d9488;--c3:#d97706;--c4:#7c3aed;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141c;--card:#181e2a;--tx:#e8ebf2;--mut:#9aa3b5;--line:#2a3243;--ac:#6b9bff;--crit:#f87171;--ok:#4ade80;--c1:#6b9bff;--c2:#2dd4bf;--c3:#fbbf24;--c4:#a78bfa;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141c;--card:#181e2a;--tx:#e8ebf2;--mut:#9aa3b5;--line:#2a3243;--ac:#6b9bff;--crit:#f87171;--ok:#4ade80;--c1:#6b9bff;--c2:#2dd4bf;--c3:#fbbf24;--c4:#a78bfa;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:4px 0}h2{font-size:19px;margin:0 0 4px}h3{font-size:15px;margin:16px 0 8px}
+.sub,.hint{color:var(--mut)}.hint{font-size:12px}a{color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px;scroll-margin-top:110px}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:12px 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.seg button{font:inherit;font-size:13px;border:0;background:none;color:var(--tx);padding:6px 12px;cursor:pointer}
+.seg button.on{background:var(--ac);color:#fff}
+.ctl label{font-size:13px;color:var(--mut);display:flex;gap:6px;align-items:center}
+.pbtn,.ctl select{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--tx);padding:6px 12px;cursor:pointer}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}.toc a{font-size:13px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--tx);background:var(--card)}.toc a:hover{border-color:var(--ac);color:var(--ac)}
+/* chain of ideas */
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 14px}
+.chain span{font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;color:var(--k);background:color-mix(in srgb,var(--k) 13%,transparent);border:1px solid color-mix(in srgb,var(--k) 35%,transparent)}
+.chain i{font-style:normal;color:var(--mut)}
+.k1{--k:var(--c1)}.k2{--k:var(--c2)}.k3{--k:var(--c3)}.k4{--k:var(--c4)}
+/* numbered steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;counter-reset:s}
+.step{background:var(--bg);border-radius:12px;padding:12px 12px 12px 50px;position:relative;font-size:14px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:12px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--k,var(--ac));color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.step b{display:block;margin-bottom:2px}
+/* boxes */
+.boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:10px 0}
+.box{border:1px solid var(--line);border-left:5px solid var(--k);border-radius:10px;padding:10px 12px;background:var(--card);font-size:14px}
+.box .lb{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--k);margin-bottom:4px}
+.box.sup{background:color-mix(in srgb,var(--c4) 7%,var(--card))}
+.box.rq p{font-weight:600;margin:0}.box p{margin:0}
+.meet{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:600px){.meet{grid-template-columns:1fr}}
+/* route stepper */
+.route{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 8px;position:relative}
+.route button{font:inherit;text-align:left;background:var(--bg);border:2px solid transparent;border-radius:12px;padding:10px;cursor:pointer;color:var(--tx);font-size:13px;font-weight:600;position:relative}
+.route button .n{display:flex;width:26px;height:26px;border-radius:50%;background:var(--k);color:#fff;align-items:center;justify-content:center;margin-bottom:6px;font-size:13px}
+.route button.on{border-color:var(--k);background:color-mix(in srgb,var(--k) 9%,var(--card))}
+.route button:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:14px;color:var(--mut);font-weight:400}
+@media (max-width:640px){.route{grid-template-columns:1fr 1fr}.route button::after{display:none}}
+.rdet{background:color-mix(in srgb,var(--k) 7%,var(--card));border:1px solid color-mix(in srgb,var(--k) 30%,transparent);border-radius:12px;padding:12px 14px;font-size:14px}
+.rdet ul{margin:6px 0 0;padding-left:20px}
+.src{font-size:11px;color:var(--mut);margin-top:6px}
+/* compare */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+@media (max-width:600px){.cmp{grid-template-columns:1fr}}
+.cmp div{border-radius:10px;padding:10px 12px;font-size:14px}
+.cmp .no{background:color-mix(in srgb,var(--crit) 9%,var(--card));border:1px solid color-mix(in srgb,var(--crit) 35%,transparent)}
+.cmp .yes{background:color-mix(in srgb,var(--ok) 9%,var(--card));border:1px solid color-mix(in srgb,var(--ok) 35%,transparent)}
+.cmp b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.cmp .no b{color:var(--crit)}.cmp .yes b{color:var(--ok)}
+/* evidence table as cards */
+.ev{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.ev div{background:var(--bg);border-radius:10px;padding:9px 11px;font-size:13px}.ev b{display:block;font-size:14px;color:var(--c2)}
+.warnl{list-style:none;padding:0;margin:8px 0}.warnl li{font-size:14px;padding:4px 0 4px 26px;position:relative}.warnl li::before{content:"⚠️";position:absolute;left:0}
+/* timeline */
+.tl{border-left:3px solid var(--line);margin:8px 0 0 10px;padding-left:18px}
+.tl div{position:relative;margin-bottom:12px;font-size:14px}.tl div::before{content:"";position:absolute;left:-26px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--k,var(--ac));border:2px solid var(--card)}
+.tl b{display:block}
+/* tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tabs button{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--tx);border-radius:10px;padding:7px 14px;cursor:pointer}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+/* highlighted example */
+.exm{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.7}
+.hl{border-radius:4px;padding:1px 2px;background:color-mix(in srgb,var(--k) 16%,transparent);box-shadow:inset 0 -2px 0 var(--k);transition:opacity .2s}
+.exm.f .hl:not(.sel){opacity:.3}
+.leg{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.leg button{font:inherit;font-size:12px;font-weight:600;border:1px solid color-mix(in srgb,var(--k) 40%,transparent);color:var(--k);background:color-mix(in srgb,var(--k) 10%,var(--card));border-radius:999px;padding:3px 10px;cursor:pointer}.leg button.on{background:var(--k);color:#fff}
+/* alignment */
+.align{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:10px 0}.align div{flex:1 1 150px;background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-weight:600;font-size:14px}.align i{font-style:normal;align-self:center;font-size:22px;color:var(--ok)}
+table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}table.sv th{color:var(--mut);font-size:12px}
+@media (max-width:600px){table.sv thead{display:none}table.sv tr{display:block;border-bottom:1px solid var(--line);padding:6px 0}table.sv td{display:block;border:0;padding:3px 0}table.sv td::before{content:attr(data-l);display:block;font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase}}
+/* role panels */
+.todo{list-style:none;padding:0;margin:8px 0}.todo li{margin:6px 0}.todo label{display:flex;gap:8px;font-size:14px;align-items:flex-start;cursor:pointer}.todo input{margin-top:4px}
+.todo .g{font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase;margin-top:12px}
+.prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0}.prog div{height:100%;background:var(--ok)}
+.cta{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ac);border-radius:10px;padding:7px 12px}
+.note{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--mut)}
+@media print{.ee-top,.site-foot,.ctl,.toc,.ee-up,.tabs,.leg,.cta{display:none!important}body{background:#fff}.card{break-inside:avoid;border-color:#bbb}main{max-width:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>🧭 EE Compass</h1>
+<p class="sub" id="lead"></p>
+<div class="ctl">
+  <div class="seg" id="lang"><button data-v="kz">Қаз</button><button data-v="ru">Рус</button><button data-v="en">Eng</button></div>
+  <label><span id="roleL"></span><span class="seg" id="role"><button data-v="all"></button><button data-v="stu"></button><button data-v="sup"></button></span></label>
+  <label><span id="subjL"></span><select id="subj"></select></label>
+  <button type="button" class="pbtn" id="print"></button>
+</div>
+<nav class="toc" id="toc"></nav>
+<div id="app"></div>
+<p class="note" id="credit"></p>
+</main>
+<script>
+(function(){
+function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
+var LG="en",ROLE="all",WT=0,RS=0,DONE={};
+try{var q=new URLSearchParams(location.search).get("lang");LG=q||localStorage.getItem("ee_cmp_lang")||(/^ru/i.test(navigator.language)?"ru":/^kk/i.test(navigator.language)?"kz":"en");ROLE=localStorage.getItem("ee_cmp_role")||"all";DONE=JSON.parse(localStorage.getItem("ee_cmp_v1")||"{}").done||{}}catch(e){}
+if(!/^(en|ru|kz)$/.test(LG))LG="en";
+function T(x){return x==null?"":typeof x==="string"?x:(x[LG]||x.en)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function save(){try{localStorage.setItem("ee_cmp_lang",LG);localStorage.setItem("ee_cmp_role",ROLE);localStorage.setItem("ee_cmp_v1",JSON.stringify({done:DONE}))}catch(e){}}
+
+// ---------- interface words
+var U={
+ lead:A("A visual guide for students and supervisors: from a topic to a research question, from evidence to a finished essay.","Наглядный путеводитель для учеников и руководителей: от темы к исследовательскому вопросу, от данных к готовому эссе.","Оқушылар мен жетекшілерге арналған көрнекі нұсқаулық: тақырыптан зерттеу сұрағына дейін, деректен дайын эссеге дейін."),
+ role:A("I am:","Я:","Мен:"),all:A("everyone","все","барлығы"),stu:A("a student","ученик","оқушы"),sup:A("a supervisor","руководитель","жетекші"),
+ subj:A("Subject:","Предмет:","Пән:"),soon:A("soon","скоро","жақында"),print:A("🖨 Print","🖨 Печать","🖨 Басып шығару"),
+ f1:A("1 Foundation","1 Основа","1 Негіз"),f2:A("2 Approach","2 Подход","2 Тәсіл"),f3:A("3 Application","3 Применение","3 Қолдану"),
+ atS:A("At the meeting · student","На встрече · ученик","Кездесуде · оқушы"),atV:A("At the meeting · supervisor","На встрече · руководитель","Кездесуде · жетекші"),
+ rq:A("Worked research question","Пример вопроса","Зерттеу сұрағы (үлгі)"),task:A("Student task","Действия ученика","Оқушының әрекеті"),an:A("Analyse the evidence","Анализ данных","Дәлелді талдау"),svq:A("Supervisor prompt","Вопрос руководителя","Жетекшінің сұрағы"),
+ seq:A("Writing sequence","Порядок работы","Жазу реті"),wex:A("Worked example · Frankenstein","Пример · «Франкенштейн»","Үлгі · «Франкенштейн»"),rex:A("Reading the example","Разбор примера","Үлгіні талдау"),
+ tap:A("Tap a colour to see that part of the example.","Нажмите на цвет, чтобы увидеть эту часть примера.","Мысалдың сол бөлігін көру үшін түсті басыңыз."),
+ student:A("Student","Ученик","Оқушы"),supervisor:A("Supervisor","Руководитель","Жетекші"),
+ toBuilder:A("✍️ Write your own question in the Builder (section 2) →","✍️ Напишите свой вопрос в конструкторе (раздел 2) →","✍️ Өз сұрағыңызды конструкторда жазыңыз (2-бөлім) →"),
+ placeholders:A("Examples are starting points, not approved research questions. Replace placeholders such as [city] with a real case you can find evidence for, and agree the question with your supervisor.","Примеры — отправная точка, а не одобренные вопросы. Замените [город] и подобные места реальным случаем, по которому есть данные, и согласуйте вопрос с руководителем.","Мысалдар — бастапқы нүкте, бекітілген сұрақтар емес. [қала] сияқты орындарды деректері бар нақты жағдаймен ауыстырыңыз және сұрақты жетекшіңізбен келісіңіз."),
+ credit:A("Based on the EE Compass handbook (prepared with AI, ChatGPT), which draws on Oxford (Lekanides, 2025), Hodder (Hoang & Koszary, 2025) and the IB Extended essay guide (first assessment 2027). Not affiliated with the IB. Check details with your supervisor and coordinator.","По материалам пособия EE Compass (подготовлено с помощью ИИ, ChatGPT) на основе книг Oxford (Lekanides, 2025), Hodder (Hoang & Koszary, 2025) и Extended essay guide IB (первая оценка 2027). Сайт не связан с IB. Уточняйте детали у руководителя и координатора.","EE Compass нұсқаулығы негізінде (ЖИ, ChatGPT көмегімен дайындалған); дереккөздері: Oxford (Lekanides, 2025), Hodder (Hoang & Koszary, 2025) және IB Extended essay guide (алғашқы бағалау 2027). Сайт IB-мен байланысты емес. Егжей-тегжейін жетекші мен үйлестірушіден нақтылаңыз."),
+ todoT:A("My Compass checklist","Мой чек-лист по Compass","Compass бойынша менің тізімім"),todoS:A("Everything the Compass asks you to do, in order. Ticks are saved in this browser.","Всё, что Compass предлагает сделать, по порядку. Галочки сохраняются в этом браузере.","Compass ұсынатын барлық әрекет, ретімен. Белгілер осы браузерде сақталады."),
+ sheetT:A("Supervisor question sheet","Лист вопросов руководителя","Жетекшінің сұрақтар парағы"),sheetS:A("All supervisor prompts from this page, grouped by stage. Print it for your meetings.","Все вопросы руководителя с этой страницы по этапам. Распечатайте к встречам.","Осы беттегі жетекшінің барлық сұрағы кезеңдер бойынша. Кездесулерге басып шығарыңыз."),
+ done:A("done","сделано","орындалды"),
+ deeper:A("Go deeper","Подробнее","Толығырақ")
+};
+
+// ---------- 1. from topic to RQ (EE guide 2027, figure 13) + Compass card 02
+var ROUTE=[
+ {h:A("Confirm your focused topic","Уточните тему","Тақырыпты нақтылаңыз"),p:A("Choose a topic of personal interest that is linked to your DP subject, and narrow it down.","Выберите тему, которая вам действительно интересна и связана с предметом DP, и сузьте её.","Өзіңізге шынымен қызық әрі DP пәніңізге байланысты тақырыпты таңдап, оны тарылтыңыз.")},
+ {h:A("Preliminary investigation","Предварительное исследование","Алдын ала зерттеу"),p:A("Ask yourself:","Спросите себя:","Өзіңізден сұраңыз:"),l:[A("What has already been written about this topic?","Что уже написано по этой теме?","Бұл тақырып туралы не жазылған?"),A("Is it easy to find sources of information?","Легко ли найти источники?","Дереккөз табу оңай ма?"),A("Is there a range of resources and of views on the topic?","Есть ли разные ресурсы и разные точки зрения?","Әртүрлі ресурстар мен көзқарастар бар ма?"),A("What interesting questions are emerging from my reading?","Какие интересные вопросы появляются, пока я читаю?","Оқу барысында қандай қызықты сұрақтар туындап жатыр?")]},
+ {h:A("Brainstorm and evaluate questions","Варианты вопросов и их оценка","Сұрақтарды ойлап, бағалау"),p:A("Write several open questions that start with “how?”, “why?” or “to what extent?”. Keep the ones that are clear, focused and arguable.","Запишите несколько открытых вопросов, которые начинаются с «how?», «why?» или «to what extent?». Оставьте ясные, узкие и такие, где возможна аргументация.","«how?», «why?» немесе «to what extent?» деп басталатын бірнеше ашық сұрақ жазыңыз. Анық, нақты әрі дәлелдеуге болатындарын қалдырыңыз.")},
+ {h:A("Choose and refine","Выберите и доработайте","Таңдап, жетілдіріңіз"),p:A("Pick one question, refine the wording and think about what answer your research could reach. It may still change later.","Выберите один вопрос, отточите формулировку и подумайте, к какому ответу может прийти исследование. Вопрос ещё может измениться.","Бір сұрақты таңдап, тұжырымын жетілдіріңіз және зерттеу қандай жауапқа әкелуі мүмкін екенін ойлаңыз. Сұрақ кейін әлі өзгеруі мүмкін.")}];
+var CARDS={
+ rq:{t:A("Choosing a research question","Выбор исследовательского вопроса","Зерттеу сұрағын таңдау"),ch:[A("Interest","Интерес","Қызығушылық"),A("problem","проблема","мәселе"),A("scope","границы","шекара"),A("question","вопрос","сұрақ")],
+  s:[A("Which relationship or tension needs explaining? Read one source and look for evidence that could challenge it.","Какая связь или какое противоречие в теме требует объяснения? Прочитай один источник и найди данные, способные поставить его под сомнение.","Тақырыбыңда қандай байланыс немесе қайшылық түсіндіруді қажет етеді? Бір дереккөзді оқып, оған қарсы келетін дәлел ізде."),
+     A("Name the object: text, event, market, material or organism. Bound place, period and conditions as the question requires.","Назови объект: текст, событие, рынок, материал или организм. Ограничь место, период и условия в соответствии с вопросом.","Зерттеу нысанын ата: мәтін, оқиға, нарық, материал немесе ағза. Қажетіне қарай орын, кезең және шарттарды шекте."),
+     A("Draft two versions. Identify the evidence each would need. Pilot one measurement, passage or small dataset.","Запиши два варианта. Для каждого укажи необходимое свидетельство. Проверь вариант на одном измерении, фрагменте или небольшой выборке.","Екі нұсқа жаз. Әр нұсқа үшін қандай дерек қажет екенін көрсет. Бір өлшеу, бір үзінді немесе шағын дерек жиынтығы арқылы сына.")],
+  stu:A("Bring both questions and the pilot result.","Принеси оба вопроса и результат пробы.","Екі сұрақ пен сынақ нәтижесін әкел."),
+  sup:A("Which version allows a reasoned answer within 4,000 words?","На какой вариант можно доказательно ответить в пределах 4 000 слов?","Қай нұсқаға 4 000 сөз аясында дәлелді жауап беруге болады?")},
+ ev:{t:A("What will count as evidence?","Что измерять или анализировать?","Нені өлшейміз немесе талдаймыз?"),ch:[A("Concept","Понятие","Ұғым"),A("definition","определение","анықтама"),A("evidence","данные","дерек"),A("limitation","ограничение","шектеу")],
+  s:[A("For an experiment, define the manipulated factor, outcome, unit and controls. Distinguish an independent replicate from another reading of one sample.","В эксперименте назови изменяемый фактор, измеряемый результат, единицу и контролируемые условия. Различай независимый повтор и повторное считывание прибора.","Тәжірибеде өзгертілетін факторды, өлшенетін нәтижені, бірлікті және тұрақты шарттарды ата. Үлгінің тәуелсіз қайталануын құралмен қайта өлшеуден ажырат."),
+     A("In an observational study, specify predictor and outcome. Identify a third factor that could affect both.","В наблюдательном исследовании определи объясняющий показатель и исход. Назови третий фактор, способный повлиять на оба.","Бақылау зерттеуінде түсіндіруші көрсеткіш пен нәтижені белгіле. Екеуіне де әсер етуі мүмкін үшінші факторды жаз."),
+     A("For text, arts or history, identify a passage, visual detail or document as the unit. Explain selection and an alternative interpretation.","Для текста, искусства или истории выбери единицу анализа: отрывок, визуальную деталь или документ. Объясни правило отбора и альтернативную трактовку.","Мәтін, өнер немесе тарих үшін талдау бірлігін анықта: үзінді, көркем бөлшек немесе құжат. Іріктеу ережесін және балама түсіндірмені көрсет.")],
+  stu:A("Work through one example in full.","Разбери один пример целиком.","Бір мысалды басынан аяғына дейін талда."),
+  sup:A("How well does this evidence represent the intended concept?","Насколько точно выбранный показатель отражает исследуемое понятие?","Бұл көрсеткіш сен зерттейтін ұғымды қаншалықты дәл бейнелейді?")},
+ meet:{t:A("Three reflection sessions","Три встречи с руководителем","Ғылыми жетекшімен үш кездесу"),ch:[A("Initial","Первая","Алғашқы"),A("interim","промежуточная","аралық"),A("final · viva voce","итоговая · viva voce","қорытынды · viva voce"),A("reflection","рефлексия","рефлексия")],
+  s:[A("Bring possible questions, initial evidence and a method plan to the first session. Agree a specific next deliverable.","На первую встречу принеси варианты вопроса, исходный материал и план метода. Согласуй, что именно подготовишь к следующей встрече.","Алғашқы кездесуге сұрақ нұсқаларын, бастапқы деректі және әдіс жоспарын әкел. Келесі кездесуге дейінгі нақты нәтижені келіс."),
+     A("At the interim session, explain one change to question or method. The supervisor probes a weak link in the evidence.","На промежуточной встрече на примере объясни, почему изменились вопрос или метод. Руководитель задаёт вопросы о слабом звене в доказательстве.","Аралық кездесуде сұрақтың немесе әдістің неге өзгергенін мысалмен түсіндір. Жетекші дәлелдің әлсіз тұсын сұрақ арқылы анықтайды."),
+     A("Defend a research decision at the viva voce. Then write one final RPF statement of up to 500 words about growth and transfer.","На viva voce обоснуй исследовательское решение. Затем напиши одно итоговое высказывание до 500 слов для RPF: какой навык развился и куда его можно перенести.","Қорытынды әңгімеде шешіміңді негізде. Одан кейін RPF үшін 500 сөзге дейінгі бір рефлексия жаз: қандай дағды дамыды және оны тағы қайда қолданасың?")],
+  stu:A("Record the decision, reason, evidence and next action.","Фиксируй решение, причину, свидетельство и следующий шаг.","Шешімді, себепті, дәлелді және келесі қадамды жаз."),
+  sup:A("Give feedback on one complete draft. The student makes the revisions.","Дайте отзыв на один полный черновик. Правки выполняет ученик.","Бір толық нұсқаға кері байланыс беріңіз; түзетуді оқушы орындайды.")}
+};
+
+// ---------- 3. subjects (prototype: Economics)
+var SUBJ=[["eco",A("Economics","Экономика","Экономика")],["mat",A("Mathematics","Математика","Математика")],["bm",A("Business Management","Бизнес-менеджмент","Бизнесті басқару")],["geo",A("Geography","География","География")],["dsoc",A("Digital Society","Цифровое общество","Цифрлық қоғам")],["his",A("History","История","Тарих")],["lta",A("Language A","Язык A","А тілі")],["ltb",A("Language B","Язык B","B тілі")],["phy",A("Physics","Физика","Физика")],["che",A("Chemistry","Химия","Химия")],["bio",A("Biology","Биология","Биология")],["cs",A("Computer Science","Информатика","Информатика")],["art",A("Visual Arts","Изобразительное искусство","Бейнелеу өнері")]];
+var SD={eco:{
+ ch:[A("Market","Рынок","Нарық"),A("costs","затраты","шығын"),A("price changes","изменение цен","баға өзгерісі"),A("rival explanation","альтернативное объяснение","балама түсіндірме")],
+ rq:A("How were changes in wholesale flour prices associated with retail bread prices in [city] in 2023–2025?","Как изменения оптовой цены муки были связаны с розничной ценой хлеба в [городе] в 2023–2025 годах?","2023–2025 жылдары [қалада] ұнның көтерме бағасының өзгеруі нанның бөлшек бағасымен қалай байланысты болды?"),
+ task:A("Collect monthly prices for one flour grade and one bread type in KZT per kg.","Собери помесячные цены на один сорт муки и один вид хлеба в тенге за килограмм.","Бір сұрыптағы ұн мен бір түрдегі нанның айлық бағасын теңге/кг түрінде жаз."),
+ an:A("Compare price changes over time. Did flour prices move first? Consider energy and transport costs.","Сравни изменения цен во времени. Менялась ли цена муки раньше? Учти затраты на энергию и перевозку.","Баға өзгерістерін уақыт бойынша салыстыр. Ұн бағасы бұрын өзгерді ме? Энергия мен тасымал шығындарын ескер."),
+ sv:A("What else could explain both prices rising? What evidence is missing for a causal claim?","Чем ещё объясняется одновременный рост цен? Каких данных не хватает для вывода о причине?","Екі баға қатар өссе, оны тағы не түсіндіреді? Себеп туралы тұжырым жасауға қандай дерек жетіспейді?"),
+ lens:A("Explain an economic issue through economic theory and real-world evidence. Focus on markets, incentives, resource allocation or welfare rather than a company description.","Объясните экономическую проблему через экономическую теорию и реальные данные. В центре — рынки, стимулы, распределение ресурсов или благосостояние, а не описание компании.","Экономикалық мәселені экономикалық теория мен нақты деректер арқылы түсіндіріңіз. Назарда — компанияның сипаттамасы емес, нарықтар, ынталандырулар, ресурстарды бөлу немесе әл-ауқат."),
+ broad:A("How does inflation affect Kazakhstan?","Как инфляция влияет на Казахстан?","Инфляция Қазақстанға қалай әсер етеді?"),
+ better:A("Select a defined product or market, a period and an economic relationship that can be evidenced.","Выберите конкретный товар или рынок, период и экономическую связь, которую можно подтвердить данными.","Нақты тауарды немесе нарықты, кезеңді және деректермен дәлелдеуге болатын экономикалық байланысты таңдаңыз."),
+ better2:A("To what extent were changes in wholesale flour prices associated with retail bread prices in [city] between January 2023 and December 2025?","В какой степени изменения оптовых цен на муку были связаны с розничными ценами на хлеб в [городе] с января 2023 по декабрь 2025 года?","2023 жылғы қаңтар мен 2025 жылғы желтоқсан аралығында [қаладағы] ұнның көтерме бағасының өзгерісі нанның бөлшек бағасымен қаншалықты байланысты болды?"),
+ other:[[A("Policy evaluation","Оценка политики","Саясатты бағалау"),A("To what extent did a specified local public-transport fare change meet its stated affordability objective during a defined period? Confirm the policy and data before choosing it.","В какой степени конкретное изменение тарифа на общественный транспорт в городе достигло заявленной цели — доступности — за определённый период? Прежде чем выбрать, убедитесь, что есть данные.","Белгілі бір кезеңде қоғамдық көлік тарифінің нақты өзгерісі қолжетімділік мақсатына қаншалықты жетті? Таңдамас бұрын саясат пен деректердің бар екенін тексеріңіз.")],
+        [A("Market structure","Структура рынка","Нарық құрылымы"),A("How well does oligopoly theory explain pricing behaviour in a defined local mobile-service market during 2024–2025? Define comparable service bundles and evidence of competition.","Насколько хорошо теория олигополии объясняет ценовое поведение на конкретном местном рынке мобильной связи в 2024–2025 годах? Определите сопоставимые тарифные пакеты и признаки конкуренции.","Олигополия теориясы 2024–2025 жылдары нақты жергілікті ұялы байланыс нарығындағы баға белгілеуді қаншалықты жақсы түсіндіреді? Салыстыруға болатын тарифтік пакеттер мен бәсекелестік белгілерін анықтаңыз.")]],
+ pstu:A("Identify a mechanism, define the market and show the relevant data series before choosing the final question.","Назовите механизм, определите рынок и покажите нужные ряды данных до выбора окончательного вопроса.","Соңғы сұрақты таңдамас бұрын механизмді атаңыз, нарықты анықтаңыз және қажетті деректер қатарын көрсетіңіз."),
+ psup:A("Check that economic theory does analytical work. Ask whether the evidence identifies an effect or merely a relationship.","Проверьте, что экономическая теория действительно работает в анализе. Спросите: доказывают ли данные влияние или только связь?","Экономикалық теорияның талдауда шынымен жұмыс істейтінін тексеріңіз. Деректер әсерді көрсете ме, әлде тек байланысты ма — соны сұраңыз."),
+ evI:A("Economic data are usually observational: you need explanatory variables, an outcome and other influences, not experimentally controlled variables.","В экономике данные обычно наблюдательные: нужны объясняющие переменные, результат и другие факторы, а не контролируемые в эксперименте переменные.","Экономикада деректер әдетте бақылау деректері: эксперименттегі бақыланатын айнымалылар емес, түсіндіруші айнымалылар, нәтиже және басқа факторлар қажет."),
+ ev:[[A("Input price","Цена ресурса","Шикізат бағасы"),A("Wholesale flour price in KZT/kg, using one documented quality specification.","Оптовая цена муки в тенге за кг, одного документированного сорта.","Бір құжатталған сұрыптағы ұнның көтерме бағасы, теңге/кг.")],
+     [A("Outcome price","Цена результата","Нәтиже бағасы"),A("Retail price in KZT/kg for a consistent bread type and outlet sample.","Розничная цена в тенге за кг на один и тот же вид хлеба в одной выборке магазинов.","Бір түрдегі нанның бір дүкендер іріктемесіндегі бөлшек бағасы, теңге/кг.")],
+     [A("Time and lag","Время и лаг","Уақыт және кідіріс"),A("Monthly observations; test a theoretically justified lag between input and retail prices.","Помесячные наблюдения; проверьте теоретически обоснованный лаг между ценой ресурса и розничной ценой.","Айлық бақылаулар; шикізат пен бөлшек баға арасындағы теориялық негізделген кідірісті тексеріңіз.")],
+     [A("Other influences","Другие факторы","Басқа факторлар"),A("Energy and wage costs, transport, policy changes and competition, where data exist.","Затраты на энергию и оплату труда, транспорт, изменения политики и конкуренция — где есть данные.","Энергия мен жалақы шығындары, тасымал, саясат өзгерістері және бәсекелестік — деректер болса.")],
+     [A("Economic mechanism","Экономический механизм","Экономикалық механизм"),A("Cost-push transmission, elasticity and market structure, supported by relevant theory.","Перенос роста издержек в цены, эластичность и структура рынка с опорой на теорию.","Шығын өсімінің бағаға берілуі, икемділік және нарық құрылымы — тиісті теорияға сүйене отырып.")]],
+ warn:[A("Different grades, locations and contract terms reduce comparability.","Разные сорта, места и условия контрактов снижают сопоставимость.","Әртүрлі сұрып, орын және келісімшарт шарттары салыстыруды қиындатады."),
+       A("Changes in package size can create false price changes.","Изменение размера упаковки может создать ложное изменение цены.","Қаптама көлемінің өзгеруі жалған баға өзгерісін тудыруы мүмкін."),
+       A("Seasonality and common trends can create misleading correlation.","Сезонность и общие тренды могут дать обманчивую корреляцию.","Маусымдық пен ортақ трендтер жаңылыстыратын корреляция беруі мүмкін."),
+       A("Do not infer pass-through from a chart of two series alone.","Не делайте вывод о переносе издержек в цены только по графику двух рядов.","Шығынның бағаға берілуі туралы қорытындыны тек екі қатардың графигінен жасамаңыз."),
+       A("A theoretical diagram is an explanatory model, not measured evidence.","Теоретическая диаграмма — это объясняющая модель, а не измеренные данные.","Теориялық диаграмма — өлшенген дерек емес, түсіндіруші модель.")],
+ flow:[[A("Create comparable series","Создайте сопоставимые ряды","Салыстырмалы қатарлар жасаңыз"),A("Document units, source coverage and missing months. Keep nominal prices or deflate consistently, and explain which choice fits the question.","Зафиксируйте единицы, охват источников и пропущенные месяцы. Используйте номинальные цены или последовательно дефлируйте их и объясните, что подходит вопросу.","Бірліктерді, дереккөздердің қамтуын және жетіспейтін айларды жазыңыз. Номиналды бағаларды қалдырыңыз немесе бірізді дефляциялаңыз және қай таңдау сұраққа сай екенін түсіндіріңіз.")],
+       [A("Analyse the relationship","Проанализируйте связь","Байланысты талдаңыз"),A("Plot changes and lags, calculate proportionate changes and use correlation or regression only if justified. Check trend and seasonality problems.","Постройте графики изменений и лагов, рассчитайте относительные изменения; корреляцию или регрессию используйте, только если это обосновано. Проверьте влияние тренда и сезонности.","Өзгерістер мен кідірістердің графигін салыңыз, салыстырмалы өзгерістерді есептеңіз; корреляция мен регрессияны тек негізделген жағдайда қолданыңыз. Тренд пен маусымдықтың әсерін тексеріңіз.")],
+       [A("Evaluate the explanation","Оцените объяснение","Түсіндірмені бағалаңыз"),A("Use industry or policy evidence to test the proposed mechanism and rival explanations. Distinguish an observed association from causal pass-through.","Проверьте предложенный механизм и альтернативные объяснения по данным отрасли или политики. Отличайте наблюдаемую связь от причинного переноса издержек.","Ұсынылған механизм мен балама түсіндірмелерді сала немесе саясат деректерімен тексеріңіз. Байқалған байланысты себептік әсерден ажыратыңыз.")]],
+ bound:A("Do not estimate demand elasticity from price and quantity changes without considering supply shifts and other influences. An honestly bounded answer is better than an unsupported causal claim.","Не оценивайте эластичность спроса по изменениям цены и количества, не учитывая сдвиги предложения и другие факторы. Честно ограниченный ответ лучше необоснованного вывода о причине.","Ұсыныстың ығысуын және басқа факторларды ескермей, баға мен көлем өзгерісінен сұраныс икемділігін бағаламаңыз. Негізсіз себептік тұжырымнан гөрі шегі адал көрсетілген жауап жақсы."),
+ str:[[A("Introduction","Введение","Кіріспе"),A("Define the market, product, place, dates and RQ. Explain the economic significance and why the available evidence can address the question.","Определите рынок, товар, место, даты и вопрос. Объясните экономическую значимость и почему доступные данные позволяют ответить на вопрос.","Нарықты, тауарды, орынды, мерзімді және сұрақты анықтаңыз. Экономикалық маңызын және қолдағы деректер сұраққа неге жауап бере алатынын түсіндіріңіз.")],
+      [A("Approach and evidence","Подход и данные","Тәсіл және деректер"),A("Explain the datasets, comparability decisions, selected period and method. Identify missing variables and limits on causal inference.","Опишите наборы данных, решения о сопоставимости, выбранный период и метод. Назовите недостающие переменные и пределы выводов о причинах.","Деректер жиынтығын, салыстыру бойынша шешімдерді, таңдалған кезеңді және әдісті түсіндіріңіз. Жетіспейтін айнымалылар мен себептік қорытындының шегін атаңыз.")],
+      [A("Theory in use","Теория в работе","Теорияны қолдану"),A("Apply relevant theory at the point of analysis. Use labelled diagrams tied to the actual market, not a separate textbook theory chapter.","Применяйте теорию там, где идёт анализ. Используйте подписанные диаграммы, привязанные к реальному рынку, а не отдельную главу пересказа учебника.","Теорияны талдау жүріп жатқан жерде қолданыңыз. Оқулықтан бөлек тарау емес, нақты нарыққа байланысты белгіленген диаграммаларды пайдаланыңыз.")],
+      [A("Analysis","Анализ","Талдау"),A("Present trends, calculations and relationships, then explain them economically. Organise around mechanisms or sub-claims, not one section per source.","Покажите тренды, расчёты и связи, затем объясните их экономически. Стройте разделы вокруг механизмов или частных тезисов, а не по одному разделу на источник.","Трендтерді, есептеулер мен байланыстарды көрсетіп, оларды экономикалық тұрғыдан түсіндіріңіз. Бөлімдерді дереккөздер бойынша емес, механизмдер немесе жеке тезистер бойынша құрыңыз.")],
+      [A("Evaluation","Оценка","Бағалау"),A("Weigh rival factors, short-run versus long-run effects and stakeholders. Evaluate the fit of the model and the strength of the evidence.","Взвесьте конкурирующие факторы, краткосрочные и долгосрочные эффекты и интересы сторон. Оцените, насколько подходит модель и насколько сильны данные.","Бәсекелес факторларды, қысқа және ұзақ мерзімді әсерлерді және мүдделі тараптарды салмақтаңыз. Модельдің сәйкестігін және деректердің күшін бағалаңыз.")],
+      [A("Conclusion","Заключение","Қорытынды"),A("Give a qualified answer for the defined market and period. Explain what can and cannot be inferred about the mechanism; add no new data.","Дайте взвешенный ответ для выбранного рынка и периода. Объясните, что можно и чего нельзя заключить о механизме; новых данных не добавляйте.","Таңдалған нарық пен кезең үшін салмақты жауап беріңіз. Механизм туралы не айтуға болатынын және болмайтынын түсіндіріңіз; жаңа дерек қоспаңыз.")]],
+ strN:A("Section titles and lengths are suggestions, not IB rules.","Названия и объём разделов — рекомендации, а не правила IB.","Бөлім атаулары мен көлемі — IB ережесі емес, ұсыныс."),
+ vis:A("Aligned time-series charts; changes rather than only levels; a carefully labelled market diagram; a small table of competing explanations.","Совмещённые графики временных рядов; изменения, а не только уровни; аккуратно подписанная диаграмма рынка; небольшая таблица конкурирующих объяснений.","Қатар қойылған уақыт қатарларының графиктері; тек деңгей емес, өзгерістер; мұқият белгіленген нарық диаграммасы; бәсекелес түсіндірмелердің шағын кестесі."),
+ svl:[A("Where is the economics?","Где здесь экономика?","Мұндағы экономика қайда?"),A("What else changed?","Что ещё изменилось?","Тағы не өзгерді?"),A("Is the market defined consistently?","Рынок определён последовательно?","Нарық бірізді анықталған ба?"),A("Does the conclusion claim more than the design supports?","Не утверждает ли заключение больше, чем позволяет дизайн исследования?","Қорытынды зерттеу дизайны мүмкіндік бергеннен көп нәрсе айтып тұрған жоқ па?")],
+ follow:[A("Flour price changes","Изменения цен на муку","Ұн бағасының өзгерісі"),A("Timing of bread prices","Динамика цен на хлеб","Нан бағасының уақыты"),A("Competing cost shifts","Другие изменения издержек","Бәсекелес шығын өзгерістері"),A("Strength of association","Сила связи","Байланыс күші")]
+}};
+var SL={lens:A("The economics lens","Взгляд экономиста","Экономикалық көзқарас"),broad:A("Too broad","Слишком широко","Тым кең"),better:A("Better","Лучше","Жақсырақ"),other:A("Other directions worth testing","Другие направления","Басқа бағыттар"),
+ ev:A("Evidence and measurement","Данные и измерение","Деректер мен өлшеу"),warn:A("Watch out","Осторожно","Абай болыңыз"),flow:A("A realistic workflow","Реалистичный порядок работы","Жұмыстың орындалатын реті"),bound:A("Interpretation boundary","Граница интерпретации","Түсіндіру шегі"),
+ str:A("Structure of the essay","Структура эссе","Эссе құрылымы"),vis:A("Visual evidence","Наглядные данные","Көрнекі деректер"),svl:A("Supervisor questions","Вопросы руководителя","Жетекшінің сұрақтары"),follow:A("Follow the evidence through the essay","Как данные проходят через эссе","Дерек эссе бойымен қалай өтеді")};
+
+// ---------- 4. writing: introduction, body, conclusion
+var WR=[
+ {t:A("Introduction","Введение","Кіріспе"),ch:[A("Problem","Проблема","Мәселе"),A("question","вопрос","сұрақ"),A("approach","подход","тәсіл"),A("line of argument","ход аргументации","дәлелдеу бағыты")],
+  lead:A("Help the reader understand the problem, why it matters and how you will investigate it.","Читателю должно быть понятно, какую проблему ты исследуешь, почему она заслуживает внимания и как ты получишь ответ.","Оқырман қандай мәселені, неліктен және қалай зерттейтініңді түсінуі керек."),
+  s:[A("Establish the problem. Identify a tension or uncertainty that gives rise to the question. Cite the scholarship that supports your account of the problem.","Поставь проблему. Покажи конкретное противоречие или неопределённость, из которых возникает вопрос. Если ссылаешься на научную или критическую позицию, укажи источник.","Мәселені нақтыла. Зерттеу сұрағына алып келетін қайшылықты немесе білімдегі белгісіздікті көрсет. Ғылыми не сыни пікірге сүйенсең, дереккөзге сілтеме жаса."),
+     A("State the RQ in the wording used on the title page. Identify the object, period, corpus or conditions and justify the boundaries.","Сформулируй вопрос и очерти границы. Приведи вопрос в формулировке с титульной страницы. Обоснуй выбор объекта, периода, корпуса или условий.","Сұрақ пен ауқымды белгіле. Сұрақты титул бетіндегі тұжырыммен бер. Нысанды, кезеңді, корпусты немесе жағдайды таңдауыңды негізде."),
+     A("Explain the approach and line of argument. Identify the main evidence and how you will analyse it. Show how the stages connect. Revisit the introduction after writing the body.","Объясни подход и ход аргументации. Назови ключевой материал и способ его анализа. Покажи, как этапы исследования связаны между собой. Вернись к введению после написания основной части.","Тәсіл мен дәлелдеу бағытын түсіндір. Негізгі деректі және оны қалай талдайтыныңды ата. Талдау кезеңдері қалай байланысатынын көрсет. Негізгі бөлімді жазған соң кіріспені қайта тексер.")],
+  roles:[["k1",A("problem","проблема","мәселе")],["k2",A("question","вопрос","сұрақ")],["k3",A("approach","подход","тәсіл")]],
+  ex:{en:[["","In "],["k1","Frankenstein, readers encounter one conflict through several narrators. Judgements of blame may therefore depend on who tells the story."],[""," "],["k2","How does the novel’s narrative framing complicate the attribution of responsibility?"],[""," "],["k3","I compare the ways Victor and the Creature justify their choices, then examine how Walton’s letters frame both accounts."]],
+      ru:[["k1","В «Франкенштейне» один конфликт доходит до читателя через нескольких рассказчиков. Поэтому суждение о вине может зависеть от того, кому принадлежит рассказ."],[""," "],["k2","Как рамочная композиция романа усложняет вопрос об ответственности?"],[""," "],["k3","В эссе я сопоставлю способы самооправдания Виктора и Создания, а затем рассмотрю, как письма Уолтона обрамляют оба свидетельства."]],
+      kz:[["k1","«Франкенштейндегі» бір дау оқырманға бірнеше баяндаушы арқылы жетеді. Кінәні кімге жүктейтініміз оқиғаны кімнің айтуына байланысты болуы мүмкін."],[""," "],["k2","Романдағы баяндау құрылымы жауапкершілікті анықтауды қалай күрделендіреді?"],[""," "],["k3","Бұл эссе Виктор мен Жаратылыстың әңгімелеріндегі өзін ақтау тәсілдерін салыстырып, Уолтонның хаттары олардың куәліктерін қалай жеткізетінін талдайды."]]},
+  rd:A("The model establishes a problem, a question and an approach. In a full introduction, identify the edition and justify the selection of episodes.","В примере есть проблема, вопрос и подход. В полном введении укажи издание и объясни выбор ключевых эпизодов.","Мысалда мәселе, сұрақ және тәсіл бар. Толық нұсқада басылымды көрсетіп, үзінділерді неге таңдағаныңды негізде."),
+  stu:A("Underline the RQ. Beside it, write the scope and method.","Подчеркни вопрос. Рядом выпиши границы исследования и метод.","Сұрақтың астын сыз. Қасына зерттеудің ауқымы мен тәсілін жаз."),
+  sup:A("“How will this method help you answer this particular question?”","«Как именно выбранный метод позволит ответить на этот вопрос?»","«Бұл әдіс дәл осы сұраққа жауап беруге қалай көмектеседі?»")},
+ {t:A("Main body","Основная часть","Негізгі бөлім"),ch:[A("Claim","Тезис","Тезис"),A("evidence","свидетельство","дәлел"),A("analysis","анализ","талдау"),A("evaluation","оценка","бағалау")],
+  lead:A("Each section should establish one part of the answer to the research question.","Каждый раздел должен обосновывать одну часть ответа на исследовательский вопрос.","Әр бөлім зерттеу сұрағына жауаптың бір бөлігін дәлелдеуі керек."),
+  s:[A("Open the section with a claim. State what you intend to establish and introduce the concept or theory needed to understand it.","Начни раздел с тезиса. Укажи, какую мысль о предмете исследования ты обоснуешь. Введи понятие или теорию там, где они помогают понять этот тезис.","Бөлімді тезистен баста. Зерттеу сұрағына қатысты қандай ойды негіздейтініңді айт. Осы ойға қажетті ұғымды немесе теорияны түсіндір."),
+     A("Present and analyse evidence. Select a passage, document, map, measurement or calculation. Identify its source. Isolate the relevant detail and explain the reasoning from detail to claim.","Приведи и разбери свидетельство. Это может быть отрывок, документ, карта, измерение или расчёт. Укажи источник. Выдели конкретную особенность материала и объясни, почему она поддерживает тезис.","Дәлелді ұсын және талда. Үзінді, құжат, карта, өлшеу немесе есеп таңда. Дереккөзді көрсет. Дәлелдің нақты ерекшелігін атап, одан тезиске қалай келгеніңді түсіндір."),
+     A("Test the claim against a counterexample, alternative reading or methodological limitation. End with a provisional judgement and identify the issue the next section must resolve.","Проверь силу вывода. Рассмотри контрпример, другую трактовку или ограничение метода. Заверши раздел промежуточным выводом и обозначь, что ещё предстоит объяснить.","Пайымды тексер. Қарсы мысалды, өзге түсіндірмені не әдістің шектеуін қарастыр. Бөлім соңында не дәлелденгенін және келесі бөлімде қандай мәселе қалатынын айт.")],
+  roles:[["k1",A("claim","тезис","тезис")],["k2",A("evidence","свидетельство","дәлел")],["k3",A("limit","ограничение","шектеу")],["k4",A("next step","следующий шаг","келесі қадам")]],
+  ex:{en:[["k1","Walton’s letters draw attention to who transmits Victor’s account and for whom."],[""," "],["k2","Writing to his sister about the expedition, Walton includes his encounter with Victor in that correspondence. Readers therefore receive Victor’s testimony through an intermediary."],[""," "],["k3","Mediation alone does not establish that the testimony is false."],[""," "],["k4","The next comparison is between Walton’s characterisation of Victor and his account of encountering the Creature."]],
+      ru:[["k1","Письма Уолтона заставляют обратить внимание на то, кто передаёт рассказ Виктора и кому он адресован."],[""," "],["k2","Уолтон пишет сестре о своей экспедиции и включает в письма встречу с Виктором. Значит, читатель знакомится с версией Виктора через посредника."],[""," "],["k3","Само посредничество ещё не доказывает, что рассказ ложен."],[""," "],["k4","Теперь можно сопоставить, как Уолтон характеризует Виктора и как передаёт встречу с Созданием."]],
+      kz:[["k1","Уолтонның хаттары Виктордың әңгімесін кімнің таңдап, кімге жеткізгеніне назар аудартады."],[""," "],["k2","Уолтон Солтүстікке сапары туралы әпкесіне жазып, Виктормен кездесуін де сол хаттарға енгізеді. Сондықтан Виктордың сөзі оқырманға делдал арқылы жетеді."],[""," "],["k3","Дегенмен делдалдың болуы оның әңгімесін автоматты түрде жалған етпейді."],[""," "],["k4","Келесі қадам — Уолтонның Викторға берген бағасын оның Жаратылыс туралы жазғандарымен салыстыру."]]},
+  rd:A("This models the reasoning. In the essay, add an exact quotation, its page in your edition and analysis of the wording. In an experimental essay, use measurements, calculations and uncertainty to support the inference.","Это модель рассуждения. В реальном эссе добавь точную цитату, страницу выбранного издания и разбор слов. В экспериментальной работе ту же функцию выполняют измерение, расчёт и анализ неопределённости.","Бұл ойлау үлгісі. Нақты эсседе таңдалған басылымнан дәйексөз бен бет нөмірін қосып, сөз қолданысын талда. Эксперименттік жұмыста осы қызметті өлшеу, есеп және белгісіздікті талдау атқарады."),
+  stu:A("Write one provisional answer per section and read the answers in sequence.","Напиши по одному промежуточному выводу для каждого раздела и прочитай их по порядку.","Әр бөлімге бір сөйлемдік аралық жауап жаз. Оларды ретімен оқып шық."),
+  sup:A("“What does this evidence establish? Which inference would still be too strong?”","«Что позволяет утверждать это свидетельство? Для какого вывода его пока недостаточно?»","«Дерек нені көрсетеді? Одан қандай қорытынды жасауға әлі ерте?»")},
+ {t:A("Conclusion","Заключение","Қорытынды"),ch:[A("Answer","Ответ","Жауап"),A("strongest reasons","основания","негізгі негіздеме"),A("limits","границы","шек"),A("significance","значение","маңыз")],
+  lead:A("Show the reader the answer reached and the boundaries within which it holds.","Читатель должен увидеть, какой ответ получен и где проходят границы этого ответа.","Оқырман зерттеу сұрағына қандай жауап алынғанын және оның шегі қандай екенін көруі керек."),
+  s:[A("Answer the exact RQ directly. For a question of extent, state the degree and the conditions under which that judgement is warranted.","Дай прямой ответ на исходный вопрос. Если вопрос о степени влияния, укажи степень и условия, в которых такая оценка оправдана.","Нақты сұраққа тікелей жауап бер. «Қаншалықты?» деген сұрақ болса, ықпал дәрежесін және қандай жағдайда бұл баға негізді екенін көрсет."),
+     A("Synthesise the main findings. Select the strongest reasons and explain how they reinforce each other or why one carries more weight.","Объедини главные результаты. Выбери наиболее весомые основания. Объясни, как они дополняют друг друга или почему одно из них убедительнее другого.","Негізгі нәтижелерді біріктір. Ең салмақты дәлелдерді таңда. Олардың бір-бірін қалай толықтыратынын немесе неге біреуі екіншісінен сенімдірек екенін түсіндір."),
+     A("State the limits and significance. Which uncertainty or alternative reading qualifies the answer? What has the investigation still clarified? Analyse new evidence in the body before using it here.","Определи границы и значение вывода. Какая неопределённость или альтернативная трактовка ограничивает ответ? Что всё же удалось установить? Новое свидетельство сначала проанализируй в основной части.","Шекарасы мен маңызын көрсет. Қай белгісіздік немесе балама оқылым қорытындыны шектейді? Осы шектеуді ескергенде зерттеу нені айқындады? Жаңа дәлелді алдымен негізгі бөлімде талда.")],
+  roles:[["k1",A("answer","ответ","жауап")],["k2",A("reasons","основания","негіздер")],["k3",A("limit","граница","шек")],["k4",A("significance","значение","маңыз")]],
+  ex:{en:[["","If supported by the passage analysis, a conclusion might read as follows. "],["k1","The framing complicates the attribution of responsibility"],["k2"," because both Victor and the Creature can explain their actions, while Walton’s letters mediate both accounts."],[""," "],["k3","This arrangement alone does not establish equal blame."],[""," "],["k4","It gives readers a reason to weigh each testimony in light of who transmitted it and under what circumstances."]],
+      ru:[["","Если разбор эпизодов это подтвердил, заключение может звучать так. "],["k1","Рамочная композиция усложняет суждение об ответственности:"],["k2"," и Виктор, и Создание получают возможность объяснить свои поступки, а читатель воспринимает оба рассказа через письма Уолтона."],[""," "],["k3","Такая композиция сама по себе не уравнивает вину героев."],[""," "],["k4","Она даёт читателю основания оценивать каждое свидетельство с учётом того, кто и при каких обстоятельствах его передал."]],
+      kz:[["","Егер талдау мұны растаса, қорытынды былай құрылуы мүмкін: "],["k1","баяндау құрылымы жауапкершілікті анықтауды күрделендіреді,"],["k2"," өйткені Виктор да, Жаратылыс та өз әрекетін түсіндіруге мүмкіндік алады, ал оқырман олардың әңгімелерін Уолтонның хаттары арқылы қабылдайды."],[""," "],["k3","Бұл тәсіл екі кейіпкердің кінәсі тең екенін дәлелдемейді."],[""," "],["k4","Ол оқырманға әрбір куәлікті кім және қандай жағдайда жеткізгенін ескеріп бағалауға негіз береді."]]},
+  rd:A("The model gives an answer, two supporting reasons and a limit. Personal learning and development belong in the separate RPF reflection.","Здесь есть ответ, два основания и граница интерпретации. Рассуждение о личном развитии ученика относится к рефлексии в RPF.","Мұнда сұраққа жауап, екі негіз және пайымның шегі көрсетілген. Оқушының жеке дамуы туралы ой RPF рефлексиясында беріледі."),
+  stu:A("Beside each concluding claim, note the section that supports it.","Поставь рядом с каждым выводом номер раздела, в котором он обоснован.","Қорытындыдағы әр пайымның жанына оны негіздейтін бөлім нөмірін қой."),
+  sup:A("“Which limitation changes the scope of the answer? Does the conclusion address the whole RQ?”","«Какое ограничение меняет границы ответа? Полностью ли заключение отвечает на исходный вопрос?»","«Қай шектеу жауаптың ауқымын өзгертеді? Қорытынды бастапқы сұраққа толық жауап бере ме?»")}];
+
+// ---------- 5. supervision
+var SV=[[A("Initial session","Первая встреча","Алғашқы кездесу"),"k1",A("Candidate RQ, rationale, first sources, a feasible method and ethical issues.","Варианты вопроса, обоснование, первые источники, реалистичный метод и этические вопросы.","Сұрақ нұсқалары, негіздеме, алғашқы дереккөздер, орындалатын әдіс және этикалық мәселелер."),A("Why this question? What evidence could answer it? What must be resolved before going on?","Почему этот вопрос? Какие данные могут на него ответить? Что нужно решить, прежде чем двигаться дальше?","Неге осы сұрақ? Оған қандай дерек жауап бере алады? Әрі қарай жүрмес бұрын нені шешу керек?")],
+ [A("Interim session","Промежуточная встреча","Аралық кездесу"),"k2",A("Pilot or early findings, source notes, the emerging argument, a revised plan.","Пробные или первые результаты, записи по источникам, складывающаяся аргументация, обновлённый план.","Сынақ немесе алғашқы нәтижелер, дереккөз жазбалары, қалыптасып келе жатқан дәлел, жаңартылған жоспар."),A("What has changed? Where does the evidence challenge you? What will the next stage establish?","Что изменилось? Где данные ставят вас под сомнение? Что должен установить следующий этап?","Не өзгерді? Дерек сізге қай жерде қарсы шығады? Келесі кезең нені анықтауы керек?")],
+ [A("Feedback on one complete draft","Отзыв на один полный черновик","Бір толық нұсқаға кері байланыс"),"k3",A("A complete essay with citations and specific questions.","Полное эссе со ссылками и конкретными вопросами.","Сілтемелері бар толық эссе және нақты сұрақтар."),A("Where is the reasoning unclear? Which evidence is missing? What should the student prioritise in revision?","Где рассуждение неясно? Каких данных не хватает? Что ученику исправлять в первую очередь?","Пайымдау қай жерде түсініксіз? Қандай дерек жетіспейді? Оқушы нені бірінші түзетуі керек?")],
+ [A("Final session · viva voce","Итоговая встреча · viva voce","Қорытынды кездесу · viva voce"),"k4",A("The completed essay and examples of research decisions and learning.","Готовое эссе и примеры исследовательских решений и того, чему научился.","Аяқталған эссе және зерттеу шешімдері мен үйренгендердің мысалдары."),A("How do you defend the answer? What changed your approach? Where could the learning transfer?","Как вы защищаете свой ответ? Что изменило ваш подход? Где ещё пригодится то, чему вы научились?","Жауабыңызды қалай қорғайсыз? Тәсіліңізді не өзгертті? Үйренгеніңізді тағы қайда қолдануға болады?")]];
+var SVL={t:A("What to bring and what to ask","Что принести и о чём спросить","Не әкелу және не сұрау керек"),stage:A("Stage","Этап","Кезең"),brings:A("Student brings","Ученик приносит","Оқушы әкеледі"),asks:A("Supervisor asks","Руководитель спрашивает","Жетекші сұрайды"),
+ bnd:A("Feedback boundary","Границы помощи","Көмектің шегі"),bndT:A("The supervisor asks questions and names priorities on one complete draft, but does not rewrite the essay, correct the student’s calculations or take over the investigation.","Руководитель задаёт вопросы и называет приоритеты по одному полному черновику, но не переписывает эссе, не исправляет расчёты ученика и не берёт исследование на себя.","Жетекші бір толық нұсқа бойынша сұрақ қойып, басымдықтарды атайды, бірақ эссені қайта жазбайды, оқушының есептерін түзетпейді және зерттеуді өз қолына алмайды."),
+ al:A("Final check: three parts, one question","Финальная проверка: три части — один вопрос","Соңғы тексеру: үш бөлік — бір сұрақ"),alT:A("Put the title-page RQ, the introduction and the conclusion side by side. They must refer to the same object, period, scope and task. Then check that the body really demonstrates the conclusion.","Положите рядом вопрос с титульной страницы, введение и заключение. Они должны говорить об одном объекте, периоде, границах и задаче. Затем проверьте, что основная часть действительно доказывает заключение.","Титул бетіндегі сұрақты, кіріспені және қорытындыны қатар қойыңыз. Олар бір нысан, кезең, ауқым және міндет туралы болуы керек. Содан кейін негізгі бөлім қорытындыны шынымен дәлелдейтінін тексеріңіз."),
+ a1:A("RQ on the title page","Вопрос на титуле","Титулдағы сұрақ"),a2:A("Introduction","Введение","Кіріспе"),a3:A("Conclusion","Заключение","Қорытынды"),
+ rpf:A("Three formal reflection sessions and one final reflective statement on the RPF (up to 500 words, criterion E). Explain decisions, growth and transfer with concrete examples. The reflective statement is separate from the essay conclusion.","Три обязательные встречи-рефлексии и одно итоговое высказывание в RPF (до 500 слов, критерий E). Объясняйте решения, рост и перенос навыков на конкретных примерах. Рефлексия — отдельно от заключения эссе.","Үш міндетті рефлексия кездесуі және RPF-тегі бір қорытынды рефлексия (500 сөзге дейін, E критерийі). Шешімдерді, дамуды және дағдыны басқа жерде қолдануды нақты мысалдармен түсіндіріңіз. Рефлексия эссенің қорытындысынан бөлек.")};
+
+var SEC=[A("From topic to question","От темы к вопросу","Тақырыптан сұраққа"),A("Evidence","Данные","Дерек"),A("Your subject","Ваш предмет","Сіздің пәніңіз"),A("Writing","Письмо","Жазу"),A("Supervisor","Руководитель","Жетекші")];
+var SUB=localStorage&&(function(){try{return localStorage.getItem("ee_cmp_subj")}catch(e){return null}})()||"eco";if(!SD[SUB])SUB="eco";
+
+// ---------- building blocks
+function chain(a){return'<div class="chain">'+a.map(function(x,i){return(i?"<i>→</i>":"")+'<span class="k'+(i+1)+'">'+esc(T(x))+"</span>"}).join("")+"</div>"}
+function box(k,cls,lab,txt){return'<div class="box '+k+" "+cls+'"><span class="lb">'+esc(T(lab))+"</span><p>"+esc(T(txt))+"</p></div>"}
+function steps(a,labs){return'<div class="steps">'+a.map(function(x,i){return'<div class="step k'+(i+1)+'">'+(labs?"<b>"+esc(T(labs[i]).replace(/^\d\s*/,""))+"</b>":"")+esc(T(x))+"</div>"}).join("")+"</div>"}
+function meet(stu,sup){return'<div class="meet">'+box("k2","",U.atS,stu)+box("k4","sup",U.atV,sup)+"</div>"}
+function cardBlock(c){return"<h3>"+esc(T(c.t))+"</h3>"+chain(c.ch)+steps(c.s,[U.f1,U.f2,U.f3])+meet(c.stu,c.sup)}
+
+// collected for the role panels
+var TODO=[],SHEET=[];
+function addTodo(g,id,x){TODO.push([g,id,x])}
+function addSheet(g,x){SHEET.push([g,x])}
+
+function sec1(){var r=ROUTE[RS],k="k"+(RS+1);
+ var h='<section class="card" id="c1"><h2>1. '+esc(T(SEC[0]))+'</h2><p class="hint">'+esc(T(A("Four steps from the EE guide (2027). Tap a step.","Четыре шага из EE guide (2027). Нажмите на шаг.","EE guide (2027) ұсынатын төрт қадам. Қадамды басыңыз.")))+"</p>";
+ h+='<div class="route">'+ROUTE.map(function(x,i){return'<button type="button" class="k'+(i+1)+(i==RS?" on":"")+'" data-rs="'+i+'"><span class="n">'+(i+1)+"</span>"+esc(T(x.h))+"</button>"}).join("")+"</div>";
+ h+='<div class="rdet '+k+'"><b>'+esc(T(r.h))+"</b><p style='margin:4px 0 0'>"+esc(T(r.p))+"</p>"+(r.l?"<ul>"+r.l.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul>":"")+'<div class="src">EE guide 2027, figure 13</div></div>';
+ h+=cardBlock(CARDS.rq)+'<a class="cta" href="index.html#s2">'+esc(T(U.toBuilder))+"</a></section>";
+ return h}
+function sec2(){return'<section class="card" id="c2"><h2>2. '+esc(T(SEC[1]))+"</h2>"+cardBlock(CARDS.ev).replace(/^<h3>/,'<h3 style="margin-top:4px">')+"</section>"}
+function sec3(){var d=SD[SUB];
+ var h='<section class="card" id="c3"><h2>3. '+esc(T(SEC[2]))+": "+esc(T(SUBJ.filter(function(s){return s[0]==SUB})[0][1]))+"</h2>"+chain(d.ch);
+ h+='<div class="boxes">'+box("k1","rq",U.rq,d.rq)+box("k2","",U.task,d.task)+box("k3","",U.an,d.an)+box("k4","sup",U.svq,d.sv)+"</div>";
+ h+='<p class="note">'+esc(T(U.placeholders))+"</p>";
+ h+="<h3>🔎 "+esc(T(SL.lens))+"</h3><p style='margin:0'>"+esc(T(d.lens))+"</p>";
+ h+='<div class="cmp"><div class="no"><b>✖ '+esc(T(SL.broad))+"</b>"+esc(T(d.broad))+'</div><div class="yes"><b>✔ '+esc(T(SL.better))+"</b>"+esc(T(d.better))+'<p style="margin:6px 0 0;font-weight:600">'+esc(T(d.better2))+"</p></div></div>";
+ h+="<h3>🧭 "+esc(T(SL.other))+'</h3><div class="boxes">'+d.other.map(function(o,i){return box("k"+(i+2),"",o[0],o[1])}).join("")+"</div>";
+ h+='<div class="meet">'+box("k2","",U.student,d.pstu)+box("k4","sup",U.supervisor,d.psup)+"</div>";
+ h+="<h3>📏 "+esc(T(SL.ev))+'</h3><p class="hint" style="margin-top:0">'+esc(T(d.evI))+'</p><div class="ev">'+d.ev.map(function(r){return"<div><b>"+esc(T(r[0]))+"</b>"+esc(T(r[1]))+"</div>"}).join("")+"</div>";
+ h+="<h3>"+esc(T(SL.warn))+'</h3><ul class="warnl">'+d.warn.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul>";
+ h+="<h3>🛠 "+esc(T(SL.flow))+"</h3>"+steps(d.flow.map(function(f){return f[1]}),d.flow.map(function(f){return f[0]}));
+ h+='<div class="box k3" style="margin-top:10px"><span class="lb">🚧 '+esc(T(SL.bound))+"</span><p>"+esc(T(d.bound))+"</p></div>";
+ h+="<h3>🧱 "+esc(T(SL.str))+'</h3><p class="hint" style="margin-top:0">'+esc(T(d.strN))+'</p><div class="tl">'+d.str.map(function(s,i){return'<div class="k'+(i%4+1)+'"><b>'+esc(T(s[0]))+"</b>"+esc(T(s[1]))+"</div>"}).join("")+"</div>";
+ h+='<div class="meet">'+box("k2","",A("📊 "+SL.vis.en,"📊 "+SL.vis.ru,"📊 "+SL.vis.kz),d.vis)+'<div class="box k4 sup"><span class="lb">'+esc(T(SL.svl))+'</span><ul style="margin:0;padding-left:18px">'+d.svl.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+"</ul></div></div>";
+ h+="<h3>"+esc(T(SL.follow))+"</h3>"+chain(d.follow);
+ return h+"</section>"}
+function sec4(){var w=WR[WT];
+ var h='<section class="card" id="c4"><h2>4. '+esc(T(SEC[3]))+'</h2><div class="tabs">'+WR.map(function(x,i){return'<button type="button" data-wt="'+i+'"'+(i==WT?' class="on"':"")+">"+esc(T(x.t))+"</button>"}).join("")+"</div>";
+ h+="<p style='margin:4px 0'><b>"+esc(T(w.lead))+"</b></p>"+chain(w.ch)+"<h3>"+esc(T(U.seq))+"</h3>"+steps(w.s);
+ h+="<h3>"+esc(T(U.wex))+'</h3><p class="hint" style="margin:0">'+esc(T(U.tap))+'</p><div class="leg">'+w.roles.map(function(r){return'<button type="button" class="'+r[0]+'" data-hl="'+r[0]+'">'+esc(T(r[1]))+"</button>"}).join("")+'</div><div class="exm" id="exm">'+(w.ex[LG]||w.ex.en).map(function(p){return p[0]?'<span class="hl '+p[0]+'" data-r="'+p[0]+'">'+esc(p[1])+"</span>":esc(p[1])}).join("")+"</div>";
+ h+='<p class="hint" style="margin:6px 0 0"><b>'+esc(T(U.rex))+":</b> "+esc(T(w.rd))+"</p>"+'<div class="meet">'+box("k2","",U.student,w.stu)+box("k4","sup",U.supervisor,w.sup)+"</div>";
+ return h+"</section>"}
+function sec5(){var h='<section class="card" id="c5"><h2>5. '+esc(T(SEC[4]))+"</h2>"+cardBlock(CARDS.meet).replace(/^<h3>/,'<h3 style="margin-top:4px">');
+ h+="<h3>"+esc(T(SVL.t))+'</h3><table class="sv"><thead><tr><th>'+esc(T(SVL.stage))+"</th><th>"+esc(T(SVL.brings))+"</th><th>"+esc(T(SVL.asks))+"</th></tr></thead><tbody>"+SV.map(function(r){return'<tr><td data-l="'+esc(T(SVL.stage))+'"><span class="chain" style="margin:0"><span class="'+r[1]+'">'+esc(T(r[0]))+'</span></span></td><td data-l="'+esc(T(SVL.brings))+'">'+esc(T(r[2]))+'</td><td data-l="'+esc(T(SVL.asks))+'">'+esc(T(r[3]))+"</td></tr>"}).join("")+"</tbody></table>";
+ h+='<div class="box k4 sup" style="margin-top:12px"><span class="lb">🤝 '+esc(T(SVL.bnd))+"</span><p>"+esc(T(SVL.bndT))+"</p></div>";
+ h+="<h3>✅ "+esc(T(SVL.al))+'</h3><div class="align"><div>'+esc(T(SVL.a1))+"</div><i>=</i><div>"+esc(T(SVL.a2))+"</div><i>=</i><div>"+esc(T(SVL.a3))+"</div></div><p style='margin:0;font-size:14px'>"+esc(T(SVL.alT))+"</p>";
+ h+='<p class="note" style="margin-top:12px">📝 '+esc(T(SVL.rpf))+"</p>";
+ return h+"</section>"}
+
+// role panels: student checklist and supervisor sheet (built from the same data)
+function collect(){TODO=[];SHEET=[];
+ var g1=SEC[0],g2=SEC[1],g3=SEC[2],g4=SEC[3],g5=SEC[4];
+ CARDS.rq.s.forEach(function(x,i){addTodo(g1,"rq"+i,x)});addTodo(g1,"rqm",CARDS.rq.stu);addSheet(g1,CARDS.rq.sup);
+ CARDS.ev.s.forEach(function(x,i){addTodo(g2,"ev"+i,x)});addTodo(g2,"evm",CARDS.ev.stu);addSheet(g2,CARDS.ev.sup);
+ var d=SD[SUB];addTodo(g3,SUB+"t",d.task);addTodo(g3,SUB+"a",d.an);addTodo(g3,SUB+"p",d.pstu);d.flow.forEach(function(f,i){addTodo(g3,SUB+"f"+i,f[0])});
+ addSheet(g3,d.sv);addSheet(g3,d.psup);d.svl.forEach(function(x){addSheet(g3,x)});
+ WR.forEach(function(w,i){addTodo(g4,"w"+i,A(w.t.en+": "+w.stu.en,w.t.ru+": "+w.stu.ru,w.t.kz+": "+w.stu.kz));addSheet(g4,A(w.t.en+": "+w.sup.en,w.t.ru+": "+w.sup.ru,w.t.kz+": "+w.sup.kz))});
+ CARDS.meet.s.forEach(function(x,i){addTodo(g5,"m"+i,x)});addTodo(g5,"al",SVL.al);
+ SV.forEach(function(r){addSheet(g5,A(r[0].en+": "+r[3].en,r[0].ru+": "+r[3].ru,r[0].kz+": "+r[3].kz))})}
+function panel(){if(ROLE=="all")return"";collect();
+ if(ROLE=="stu"){var n=TODO.filter(function(t){return DONE[t[1]]}).length,g="";
+  var h='<section class="card" id="c0" style="border-color:var(--ok)"><h2>✅ '+esc(T(U.todoT))+'</h2><p class="hint">'+esc(T(U.todoS))+'</p><div class="prog"><div style="width:'+Math.round(100*n/TODO.length)+'%"></div></div><p class="hint" style="margin:0">'+n+" / "+TODO.length+" "+esc(T(U.done))+'</p><ul class="todo">';
+  TODO.forEach(function(t){var gg=T(t[0]);if(gg!=g){g=gg;h+='<li class="g">'+esc(gg)+"</li>"}h+='<li><label><input type="checkbox" data-td="'+esc(t[1])+'"'+(DONE[t[1]]?" checked":"")+"> <span>"+esc(T(t[2]))+"</span></label></li>"});
+  return h+"</ul></section>"}
+ var g="",h='<section class="card" id="c0" style="border-color:var(--c4)"><h2>👩‍🏫 '+esc(T(U.sheetT))+'</h2><p class="hint">'+esc(T(U.sheetS))+'</p><ul class="todo">';
+ SHEET.forEach(function(t){var gg=T(t[0]);if(gg!=g){g=gg;h+='<li class="g">'+esc(gg)+"</li>"}h+="<li>❓ "+esc(T(t[1]))+"</li>"});
+ return h+"</ul></section>"}
+
+function render(){document.documentElement.lang=LG=="kz"?"kk":LG;
+ document.getElementById("lead").textContent=T(U.lead);document.getElementById("roleL").textContent=T(U.role);document.getElementById("subjL").textContent=T(U.subj);document.getElementById("print").textContent=T(U.print);
+ document.getElementById("credit").textContent=T(U.credit);
+ document.querySelectorAll("#lang button").forEach(function(b){b.classList.toggle("on",b.dataset.v==LG)});
+ document.querySelectorAll("#role button").forEach(function(b){b.classList.toggle("on",b.dataset.v==ROLE);b.textContent=T(U[b.dataset.v])});
+ document.getElementById("subj").innerHTML=SUBJ.map(function(s){return'<option value="'+s[0]+'"'+(SD[s[0]]?"":" disabled")+(s[0]==SUB?" selected":"")+">"+esc(T(s[1]))+(SD[s[0]]?"":" ("+esc(T(U.soon))+")")+"</option>"}).join("");
+ document.getElementById("toc").innerHTML=(ROLE=="all"?"":'<a href="#c0">'+(ROLE=="stu"?"✅ "+esc(T(U.todoT)):"👩‍🏫 "+esc(T(U.sheetT)))+"</a>")+SEC.map(function(s,i){return'<a href="#c'+(i+1)+'">'+(i+1)+". "+esc(T(s))+"</a>"}).join("");
+ document.getElementById("app").innerHTML=panel()+sec1()+sec2()+sec3()+sec4()+sec5();
+ document.querySelectorAll("[data-rs]").forEach(function(b){b.onclick=function(){RS=+b.dataset.rs;render()}});
+ document.querySelectorAll("[data-wt]").forEach(function(b){b.onclick=function(){WT=+b.dataset.wt;render();document.getElementById("c4").scrollIntoView({block:"start"})}});
+ document.querySelectorAll("[data-hl]").forEach(function(b){b.onclick=function(){var on=!b.classList.contains("on");document.querySelectorAll("[data-hl]").forEach(function(x){x.classList.remove("on")});var ex=document.getElementById("exm");ex.classList.toggle("f",on);ex.querySelectorAll(".hl").forEach(function(s){s.classList.toggle("sel",on&&s.dataset.r==b.dataset.hl)});if(on)b.classList.add("on")}});
+ document.querySelectorAll("[data-td]").forEach(function(b){b.onchange=function(){if(b.checked)DONE[b.dataset.td]=1;else delete DONE[b.dataset.td];save();var y=scrollY;render();scrollTo(0,y)}});
+ save()}
+document.querySelectorAll("#lang button").forEach(function(b){b.onclick=function(){LG=b.dataset.v;render()}});
+document.querySelectorAll("#role button").forEach(function(b){b.onclick=function(){ROLE=b.dataset.v;render()}});
+document.getElementById("subj").onchange=function(){SUB=this.value;try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
+document.getElementById("print").onclick=function(){print()};
+render();
+if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView()}
+})();
+</script>
+<script src="site.js"></script>
+</body>
+</html>
