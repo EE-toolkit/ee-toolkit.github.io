@@ -185,6 +185,62 @@
     'In-text citations and the reference list are not counted in the 4000 words.': 'Мәтін ішіндегі сілтемелер мен әдебиеттер тізімі 4000 сөзге кірмейді.',
     'Language A: cite the edition of the primary text you use and give a page number for every quotation. For a translated text give both years, for example (Tolstoy, 1878/2010).':
       'Language A: пайдаланған негізгі мәтін басылымын көрсетіп, әр дәйексөзге бет нөмірін беріңіз. Аударма мәтін үшін екі жылды да көрсетіңіз, мысалы (Tolstoy, 1878/2010).',
+    // 2. my question
+    '2. Your research question · Ваш вопрос': '2. Сіздің зерттеу сұрағыңыз',
+    'The templates below are only a starting draft built from your fields, not your question. Pick the closest one, then write your own version underneath. · Шаблоны — только черновик-каркас.':
+      'Төмендегі үлгілер — өрістеріңізден құрастырылған бастапқы жоба ғана, сіздің сұрағыңыз емес. Ең жақынын таңдап, астына өз нұсқаңызды жазыңыз.',
+    '✍️ My research question': '✍️ Менің зерттеу сұрағым',
+    '(required): rewrite the draft in your own words, with your own case and wording.': '(міндетті): жобаны өз сөзіңізбен, өз мысалыңызбен және өз тұжырымыңызбен қайта жазыңыз.',
+    'My research question…': 'Менің зерттеу сұрағым…', 'Start from the selected draft': 'Таңдалған жобадан бастау',
+    'Why this question?': 'Неге бұл сұрақ?', 'Why it interests you, what you have read so far, what you expect to find.': 'Ол сізге неге қызық, не оқыдыңыз, не табамын деп күтесіз.',
+    'It interests me because … So far I have read … I expect …': 'Бұл маған қызық, себебі … Мен … оқыдым … Мен … күтемін',
+    'Save this version to my research diary': 'Бұл нұсқаны зерттеу күнделігіме сақтау',
+    'Academic integrity.': 'Академиялық адалдық.',
+    'This site is a planning tool and its suggestions were compiled with AI. The question you submit must be your own. Note in your research diary (RRS) that you used EE Toolkit, and agree the final question with your supervisor.':
+      'Бұл сайт — жоспарлау құралы, оның ұсыныстары ЖИ көмегімен құрастырылған. Тапсыратын сұрағыңыз өзіңіздікі болуы керек. Зерттеу күнделігіңізде (RRS) EE Toolkit қолданғаныңызды жазып, қорытынды сұрақты жетекшіңізбен келісіңіз.',
+    'Which key terms need defining, and what limits did you set (place, period, text, system)? Terms to consider:': 'Қандай терминдерді анықтау керек және қандай шекаралар қойдыңыз (орын, кезең, мәтін, жүйе)?',
+    'Define the key terms and set the limits (place, period, text, system):': 'Негізгі терминдерді анықтап, шекараларды белгілеңіз (орын, кезең, мәтін, жүйе).',
+    '(checking your question)': '(сіздің сұрағыңыз тексеріледі)', '(checking the selected draft: write your own version above)': '(таңдалған жоба тексеріледі: жоғарыда өз нұсқаңызды жазыңыз)',
+    'Write your question first.': 'Алдымен сұрағыңызды жазыңыз.', 'Replace your text with the selected draft?': 'Мәтініңізді таңдалған жобамен ауыстыру керек пе?',
+    // 6. checkpoint ticks
+    'Ready for this checkpoint?': 'Осы бақылау нүктесіне дайынсыз ба?',
+    'Topic/focus': 'Тақырып/фокус', 'Detailed action plan': 'Толық іс-қимыл жоспары', 'RPPF box 1': 'RPPF 1-бөлімі', 'RPPF box 2': 'RPPF 2-бөлімі',
+    'Defined RQ': 'Нақты зерттеу сұрағы', 'Bibliography': 'Әдебиеттер тізімі',
+    'Annotated bibliography (sciences: evidence of gathered data)': 'Аннотацияланған әдебиеттер тізімі (жаратылыстану: жиналған деректер)',
+    'Summer plan': 'Жазғы жоспар', '1,500 words': '1500 сөз', '3,000 words': '3000 сөз', 'Summer plan achieved': 'Жазғы жоспар орындалды',
+    'Analysed sources': 'Дереккөздер талданды', 'Intro + body': 'Кіріспе + негізгі бөлім', 'Full draft': 'Толық жоба',
+    'Formatting (Arial 12, 3×3 cm, double spacing)': 'Рәсімдеу (Arial 12, 3×3 см, қос интервал)',
+    'Supervisor feedback on the full draft': 'Жетекшінің толық жобаға пікірі', 'Final essay': 'Қорытынды эссе',
+    'RPPF final reflection': 'RPPF қорытынды рефлексиясы', 'Formatting': 'Рәсімдеу',
+    // 9. diary
+    'Diary': 'Күнделік',
+    '9. Research diary (RRS) · Исследовательский дневник': '9. Зерттеу күнделігі (RRS)',
+    'The IB strongly recommends keeping a researcher’s reflection space (RRS). Write a short entry each week and after every meeting with your supervisor: what you did, what you found, what changed in your thinking. These entries help in the reflection sessions, the viva voce and your final reflection (criterion E). Entries are saved only in this browser: copy them into your school RRS regularly.':
+      'IB зерттеушінің рефлексия кеңістігін (researcher’s reflection space, RRS) жүргізуді қатты ұсынады. Әр апта сайын және жетекшімен әр кездесуден кейін қысқа жазба жасаңыз: не істедіңіз, не таптыңыз, ойлауыңызда не өзгерді. Бұл жазбалар рефлексия кездесулерінде, viva voce-де және қорытынды рефлексияда (E критерийі) көмектеседі. Жазбалар тек осы браузерде сақталады: оларды мектептің RRS-іне үнемі көшіріп отырыңыз.',
+    'Date': 'Күні', 'Question to answer (optional)': 'Жазбаға арналған сұрақ (міндетті емес)', 'Write your entry…': 'Жазбаңызды жазыңыз…',
+    'Add entry': 'Жазба қосу', 'Copy the whole diary': 'Бүкіл күнделікті көшіру', 'Write something first.': 'Алдымен мәтін жазыңыз.',
+    'Added ✓': 'Қосылды ✓', 'Delete this entry?': 'Бұл жазбаны өшіру керек пе?', '— free entry —': '— еркін жазба —',
+    'No entries yet. Start with the first question in the list.': 'Әзірге жазба жоқ. Тізімдегі бірінші сұрақтан бастаңыз.',
+    'Getting started': 'Жұмысты бастау', 'Research question': 'Зерттеу сұрағы', 'Research and sources': 'Зерттеу және дереккөздер',
+    'Writing and feedback': 'Жазу және кері байланыс', 'Reflection (for the RPF)': 'Рефлексия (RPF үшін)', 'AI use': 'ЖИ қолдану',
+    'What interests me about this topic, and why?': 'Бұл тақырыптың маған несі қызық және неге?',
+    'What do I already know about it, and what do I want to find out?': 'Ол туралы не білемін және нені анықтағым келеді?',
+    'Which subject fits my topic best, and why?': 'Тақырыбыма қай пән ең жақсы сәйкес келеді және неге?',
+    'How has my research question changed, and why?': 'Зерттеу сұрағым қалай өзгерді және неге?',
+    'What did my supervisor suggest, and what will I do about it?': 'Жетекшім не ұсынды және мен не істеймін?',
+    'Is my question focused enough to answer in 4000 words? What would I narrow?': 'Сұрағым 4000 сөзде жауап беруге жеткілікті тар ма? Нені тарылтар едім?',
+    'Which sources did I read this week? What was the most useful idea?': 'Осы аптада қандай дереккөздерді оқыдым? Ең пайдалы идея қандай болды?',
+    'Which source surprised me or challenged my view? How reliable is it?': 'Қай дереккөз мені таң қалдырды немесе көзқарасыма күмән келтірді? Ол қаншалықты сенімді?',
+    'What evidence do I still need, and where will I find it?': 'Маған әлі қандай дәлелдер керек және оларды қайдан табамын?',
+    'What problem did I face in my research, and how did I solve it?': 'Зерттеуде қандай қиындыққа тап болдым және оны қалай шештім?',
+    'What did I do this week, and what is my plan for next week?': 'Осы аптада не істедім және келесі аптаға жоспарым қандай?',
+    'Which part of my argument is strongest, and which is weakest?': 'Аргументімнің қай бөлігі ең күшті, қайсысы ең әлсіз?',
+    'What feedback did I get, and what did I change because of it?': 'Қандай кері байланыс алдым және соның арқасында нені өзгерттім?',
+    'Which skills have I developed (research, thinking, self-management, communication)? Give an example.': 'Қандай дағдыларымды дамыттым (зерттеу, ойлау, өзін-өзі басқару, коммуникация)? Мысал келтіріңіз.',
+    'How has my thinking about the topic changed since I started?': 'Жұмысты бастағаннан бері тақырып туралы ойым қалай өзгерді?',
+    'What would I do differently if I started again?': 'Қайта бастасам, нені басқаша істер едім?',
+    'Where can I use what I have learned outside the EE?': 'Үйренгенімді EE-ден тыс қай жерде қолдана аламын?',
+    'Did I use an AI tool? Which one, with what prompt, and what did I keep or reject?': 'ЖИ құралын қолдандым ба? Қайсысын, қандай сұраныспен және нені қалдырып, нені алып тастадым?',
     // 8. examples
     '8. Examples · Примеры': '8. Мысалдар',
     'Sciences and English: examples from the public Clastify catalogue (some pages need registration). Economics: examples from Hodder. Use for structure only, do not copy. · Только как образец структуры.':
@@ -196,7 +252,8 @@
     ['Define the key terms and set the limits (place, period, text, system): ', 'Негізгі терминдерді анықтап, шекараларды белгілеңіз (орын, кезең, мәтін, жүйе): '],
     ['State the research question word for word: “', 'Зерттеу сұрағын сөзбе-сөз жазыңыз: “'],
     ['Which key terms need defining, and what limits did you set (place, period, text, system)? Terms to consider: ', 'Қандай терминдерді анықтау керек және қандай шекаралар қойдыңыз (орын, кезең, мәтін, жүйе)? Ескеретін терминдер: '],
-    ['What is your research question, word for word? “', 'Зерттеу сұрағыңыз сөзбе-сөз қандай? “']
+    ['What is your research question, word for word? “', 'Зерттеу сұрағыңыз сөзбе-сөз қандай? “'],
+    ['e.g. ', 'мысалы, ']
   ];
 
   // --- whole texts with numbers in them
@@ -212,6 +269,11 @@
     [/^(\d+) words? written so far$/, 'Әзірге $1 сөз жазылды'],
     [/^Paragraph (\d+)$/, '$1-абзац'],
     [/^▾ Choose a suggestion \((\d+)\)$/, '▾ Ұсынысты таңдаңыз ($1)'],
+    [/^Saved to your research diary ✓ \(version (\d+)\)$/, 'Күнделікке сақталды ✓ ($1-нұсқа)'],
+    [/^Research question, version (\d+)$/, 'Зерттеу сұрағы, $1-нұсқа'],
+    [/^(\d+) entr(?:y|ies)$/, '$1 жазба'],
+    [/^\(your diary: (\d+)\)$/, '(күнделігіңізде: $1)'],
+    [/^(\d+)\+ RRS(?: entr(?:y|ies))?$/, 'RRS-те $1+ жазба'],
     [/^(.+) · ([\d,]+) words by (.+)$/, function (m, a, n, d) { return a + ' · ' + d + ' дейін ' + n.replace(',', '') + ' сөз'; }],
     [/^in (\d+) days? \(≈(\d+) weeks\)$/, '$1 күннен кейін (≈$2 апта)'],
     [/^in (\d+) days?$/, '$1 күннен кейін'],

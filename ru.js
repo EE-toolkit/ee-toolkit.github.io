@@ -181,6 +181,62 @@
     'In-text citations and the reference list are not counted in the 4000 words.': 'Внутритекстовые ссылки и список литературы не входят в 4000 слов.',
     'Language A: cite the edition of the primary text you use and give a page number for every quotation. For a translated text give both years, for example (Tolstoy, 1878/2010).':
       'Language A: указывайте издание первичного текста, которым пользуетесь, и страницу для каждой цитаты. Для переводного текста указывайте оба года, например (Tolstoy, 1878/2010).',
+    // 2. my question
+    '2. Your research question · Ваш вопрос': '2. Ваш исследовательский вопрос',
+    'The templates below are only a starting draft built from your fields, not your question. Pick the closest one, then write your own version underneath. · Шаблоны — только черновик-каркас.':
+      'Шаблоны ниже — только черновик-каркас, собранный из ваших полей, а не ваш вопрос. Выберите самый близкий и напишите под ним свой вариант.',
+    '✍️ My research question': '✍️ Мой исследовательский вопрос',
+    '(required): rewrite the draft in your own words, with your own case and wording.': '(обязательно): перепишите черновик своими словами, со своим материалом и формулировкой.',
+    'My research question…': 'Мой исследовательский вопрос…', 'Start from the selected draft': 'Начать с выбранного черновика',
+    'Why this question?': 'Почему этот вопрос?', 'Why it interests you, what you have read so far, what you expect to find.': 'Чем он вас интересует, что вы уже прочитали, что ожидаете найти.',
+    'It interests me because … So far I have read … I expect …': 'Мне это интересно, потому что … Я уже прочитал(а) … Я ожидаю …',
+    'Save this version to my research diary': 'Сохранить эту версию в исследовательский дневник',
+    'Academic integrity.': 'Академическая честность.',
+    'This site is a planning tool and its suggestions were compiled with AI. The question you submit must be your own. Note in your research diary (RRS) that you used EE Toolkit, and agree the final question with your supervisor.':
+      'Этот сайт — инструмент планирования, его подсказки составлены с помощью ИИ. Вопрос, который вы сдаёте, должен быть вашим. Отметьте в исследовательском дневнике (RRS), что пользовались EE Toolkit, и согласуйте итоговый вопрос с руководителем.',
+    'Which key terms need defining, and what limits did you set (place, period, text, system)? Terms to consider:': 'Какие термины нужно определить и какие границы вы задали (место, период, текст, система)?',
+    'Define the key terms and set the limits (place, period, text, system):': 'Определите ключевые термины и обозначьте границы (место, период, текст, система).',
+    '(checking your question)': '(проверяется ваш вопрос)', '(checking the selected draft: write your own version above)': '(проверяется выбранный черновик: напишите свой вариант выше)',
+    'Write your question first.': 'Сначала напишите свой вопрос.', 'Replace your text with the selected draft?': 'Заменить ваш текст выбранным черновиком?',
+    // 6. checkpoint ticks
+    'Ready for this checkpoint?': 'Готовы к этой контрольной точке?',
+    'Topic/focus': 'Тема/фокус', 'Detailed action plan': 'Подробный план действий', 'RPPF box 1': 'Раздел 1 RPPF', 'RPPF box 2': 'Раздел 2 RPPF',
+    'Defined RQ': 'Сформулированный вопрос', 'Bibliography': 'Список литературы',
+    'Annotated bibliography (sciences: evidence of gathered data)': 'Аннотированный список литературы (науки: собранные данные)',
+    'Summer plan': 'План на лето', '1,500 words': '1500 слов', '3,000 words': '3000 слов', 'Summer plan achieved': 'План на лето выполнен',
+    'Analysed sources': 'Источники проанализированы', 'Intro + body': 'Введение + основная часть', 'Full draft': 'Полный черновик',
+    'Formatting (Arial 12, 3×3 cm, double spacing)': 'Оформление (Arial 12, поля 3×3 см, двойной интервал)',
+    'Supervisor feedback on the full draft': 'Отзыв руководителя на полный черновик', 'Final essay': 'Итоговое эссе',
+    'RPPF final reflection': 'Итоговая рефлексия RPPF', 'Formatting': 'Оформление',
+    // 9. diary
+    'Diary': 'Дневник',
+    '9. Research diary (RRS) · Исследовательский дневник': '9. Исследовательский дневник (RRS)',
+    'The IB strongly recommends keeping a researcher’s reflection space (RRS). Write a short entry each week and after every meeting with your supervisor: what you did, what you found, what changed in your thinking. These entries help in the reflection sessions, the viva voce and your final reflection (criterion E). Entries are saved only in this browser: copy them into your school RRS regularly.':
+      'IB настоятельно рекомендует вести исследовательский дневник (researcher’s reflection space, RRS). Делайте короткую запись каждую неделю и после каждой встречи с руководителем: что сделали, что нашли, что изменилось в вашем мышлении. Эти записи помогут на рефлексивных встречах, на viva voce и в итоговой рефлексии (критерий E). Записи хранятся только в этом браузере: регулярно переносите их в школьный RRS.',
+    'Date': 'Дата', 'Question to answer (optional)': 'Вопрос для записи (по желанию)', 'Write your entry…': 'Напишите запись…',
+    'Add entry': 'Добавить запись', 'Copy the whole diary': 'Скопировать весь дневник', 'Write something first.': 'Сначала напишите текст.',
+    'Added ✓': 'Добавлено ✓', 'Delete this entry?': 'Удалить эту запись?', '— free entry —': '— свободная запись —',
+    'No entries yet. Start with the first question in the list.': 'Записей пока нет. Начните с первого вопроса в списке.',
+    'Getting started': 'Начало работы', 'Research question': 'Исследовательский вопрос', 'Research and sources': 'Исследование и источники',
+    'Writing and feedback': 'Письмо и обратная связь', 'Reflection (for the RPF)': 'Рефлексия (для RPF)', 'AI use': 'Использование ИИ',
+    'What interests me about this topic, and why?': 'Что меня интересует в этой теме и почему?',
+    'What do I already know about it, and what do I want to find out?': 'Что я уже знаю об этом и что хочу выяснить?',
+    'Which subject fits my topic best, and why?': 'Какой предмет лучше всего подходит для моей темы и почему?',
+    'How has my research question changed, and why?': 'Как изменился мой исследовательский вопрос и почему?',
+    'What did my supervisor suggest, and what will I do about it?': 'Что предложил руководитель и что я буду с этим делать?',
+    'Is my question focused enough to answer in 4000 words? What would I narrow?': 'Достаточно ли узок мой вопрос для 4000 слов? Что бы я сузил(а)?',
+    'Which sources did I read this week? What was the most useful idea?': 'Какие источники я прочитал(а) на этой неделе? Какая идея оказалась самой полезной?',
+    'Which source surprised me or challenged my view? How reliable is it?': 'Какой источник удивил меня или поставил под сомнение мою точку зрения? Насколько он надёжен?',
+    'What evidence do I still need, and where will I find it?': 'Каких доказательств мне ещё не хватает и где я их найду?',
+    'What problem did I face in my research, and how did I solve it?': 'С какой проблемой я столкнулся(лась) в исследовании и как её решил(а)?',
+    'What did I do this week, and what is my plan for next week?': 'Что я сделал(а) на этой неделе и какой у меня план на следующую?',
+    'Which part of my argument is strongest, and which is weakest?': 'Какая часть моего аргумента самая сильная, а какая самая слабая?',
+    'What feedback did I get, and what did I change because of it?': 'Какую обратную связь я получил(а) и что из-за неё изменил(а)?',
+    'Which skills have I developed (research, thinking, self-management, communication)? Give an example.': 'Какие навыки я развил(а) (исследование, мышление, самоорганизация, коммуникация)? Приведите пример.',
+    'How has my thinking about the topic changed since I started?': 'Как изменилось моё понимание темы с начала работы?',
+    'What would I do differently if I started again?': 'Что бы я сделал(а) иначе, если бы начал(а) заново?',
+    'Where can I use what I have learned outside the EE?': 'Где я смогу использовать то, чему научился(лась), за пределами EE?',
+    'Did I use an AI tool? Which one, with what prompt, and what did I keep or reject?': 'Пользовался(лась) ли я ИИ? Каким, с каким запросом, что я оставил(а), а что отбросил(а)?',
     // 8. examples
     '8. Examples · Примеры': '8. Примеры',
     'Sciences and English: examples from the public Clastify catalogue (some pages need registration). Economics: examples from Hodder. Use for structure only, do not copy. · Только как образец структуры.':
@@ -192,7 +248,8 @@
     ['Define the key terms and set the limits (place, period, text, system): ', 'Определите ключевые термины и обозначьте границы (место, период, текст, система): '],
     ['State the research question word for word: “', 'Приведите исследовательский вопрос дословно: “'],
     ['Which key terms need defining, and what limits did you set (place, period, text, system)? Terms to consider: ', 'Какие термины нужно определить и какие границы вы задали (место, период, текст, система)? Термины для рассмотрения: '],
-    ['What is your research question, word for word? “', 'Каков ваш исследовательский вопрос дословно? “']
+    ['What is your research question, word for word? “', 'Каков ваш исследовательский вопрос дословно? “'],
+    ['e.g. ', 'напр. ']
   ];
 
   // Russian numerals: 1 день, 2 дня, 5 дней
@@ -213,6 +270,11 @@
     [/^(\d+) words? written so far$/, function (m, n) { return 'Пока написано: ' + n + ' ' + words(n); }],
     [/^Paragraph (\d+)$/, 'Абзац $1'],
     [/^▾ Choose a suggestion \((\d+)\)$/, '▾ Выберите подсказку ($1)'],
+    [/^Saved to your research diary ✓ \(version (\d+)\)$/, 'Сохранено в дневник ✓ (версия $1)'],
+    [/^Research question, version (\d+)$/, 'Исследовательский вопрос, версия $1'],
+    [/^(\d+) entr(?:y|ies)$/, function (m, n) { return n + ' ' + pl(n, 'запись', 'записи', 'записей'); }],
+    [/^\(your diary: (\d+)\)$/, '(в вашем дневнике: $1)'],
+    [/^(\d+)\+ RRS(?: entr(?:y|ies))?$/, '$1+ записей в RRS'],
     [/^(.+) · ([\d,]+) words by (.+)$/, function (m, a, n, d) { return a + ' · ' + n.replace(',', '') + ' слов к ' + d; }],
     [/^in (\d+) days?(?: \(≈(\d+) weeks\))?$/, function (m, d, w) { return 'через ' + dw(d, w); }],
     [/^(\d+) days?(?: \(≈(\d+) weeks\))? ago$/, function (m, d, w) { return dw(d, w) + ' назад'; }],

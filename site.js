@@ -7,7 +7,7 @@
   var root = document.documentElement;
   var links = [['index.html', '🔬', 'EE Builder', 'Builder'], ['subject-chooser.html', '🧭', 'Which subject?', 'Subject'], ['apa7.html', '📚', 'APA 7 references', 'APA 7']];
   // the builder's sections (its cards, in order) and their short names
-  var SECTIONS = ['Subject', 'Question', 'Variables', 'Sources', 'Blueprint', 'Time left', 'Citations', 'Examples'];
+  var SECTIONS = ['Subject', 'Question', 'Variables', 'Sources', 'Blueprint', 'Time left', 'Citations', 'Examples', 'Diary'];
 
   var css = document.createElement('style');
   css.textContent =
