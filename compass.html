@@ -99,7 +99,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js?v=7"></script>
+<script src="compass-data.js?v=8"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -345,10 +345,10 @@ function render(){document.documentElement.lang=LG=="kz"?"kk":LG;
  document.querySelectorAll("[data-hl]").forEach(function(b){b.onclick=function(){var on=!b.classList.contains("on");document.querySelectorAll("[data-hl]").forEach(function(x){x.classList.remove("on")});var ex=document.getElementById("exm");ex.classList.toggle("f",on);ex.querySelectorAll(".hl").forEach(function(s){s.classList.toggle("sel",on&&s.dataset.r==b.dataset.hl)});if(on)b.classList.add("on")}});
  document.querySelectorAll("[data-td]").forEach(function(b){b.onchange=function(){if(b.checked)DONE[b.dataset.td]=1;else delete DONE[b.dataset.td];save();var y=scrollY;render();scrollTo(0,y)}});
  save()}
-document.querySelectorAll("#lang button").forEach(function(b){b.onclick=function(){LG=b.dataset.v;render()}});
+document.querySelectorAll("#lang button").forEach(function(b){b.onclick=function(){LG=LG0=b.dataset.v;render()}});
 document.querySelectorAll("#role button").forEach(function(b){b.onclick=function(){ROLE=b.dataset.v;render()}});
-var SUBLG={kza:"kz",rua:"ru"};
-document.getElementById("subj").onchange=function(){SUB=this.value;if(SUBLG[SUB])LG=SUBLG[SUB];try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
+var SUBLG={kza:"kz",rua:"ru"},LG0=LG;
+document.getElementById("subj").onchange=function(){SUB=this.value;LG=SUBLG[SUB]||LG0;try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
 document.getElementById("print").onclick=function(){print()};
 render();
 if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView()}
