@@ -99,7 +99,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js?v=6"></script>
+<script src="compass-data.js?v=7"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -120,7 +120,7 @@ var U={
  f1:A("1 Foundation","1 Основа","1 Негіз"),f2:A("2 Approach","2 Подход","2 Тәсіл"),f3:A("3 Application","3 Применение","3 Қолдану"),
  atS:A("At the meeting · student","На встрече · ученик","Кездесуде · оқушы"),atV:A("At the meeting · supervisor","На встрече · руководитель","Кездесуде · жетекші"),
  rq:A("Worked research question","Пример вопроса","Зерттеу сұрағы (үлгі)"),task:A("Student task","Действия ученика","Оқушының әрекеті"),an:A("Analyse the evidence","Анализ данных","Дәлелді талдау"),svq:A("Supervisor prompt","Вопрос руководителя","Жетекшінің сұрағы"),
- seq:A("Writing sequence","Порядок работы","Жазу реті"),wex:A("Worked example · Frankenstein","Пример · «Франкенштейн»","Үлгі · «Франкенштейн»"),rex:A("Reading the example","Разбор примера","Үлгіні талдау"),
+ seq:A("Writing sequence","Порядок работы","Жазу реті"),wex:A("Worked example","Пример","Үлгі"),rex:A("Reading the example","Разбор примера","Үлгіні талдау"),
  tap:A("Tap a colour to see that part of the example.","Нажмите на цвет, чтобы увидеть эту часть примера.","Мысалдың сол бөлігін көру үшін түсті басыңыз."),
  student:A("Student","Ученик","Оқушы"),supervisor:A("Supervisor","Руководитель","Жетекші"),
  toBuilderSup:A("👩‍🏫 See where students draft their question: Builder, section 2 →","👩‍🏫 Где ученики составляют вопрос: конструктор, раздел 2 →","👩‍🏫 Оқушылар сұрақты қайда құрастырады: конструктор, 2-бөлім →"),
@@ -303,8 +303,8 @@ function sec3(){var d=SD[SUB];
 function sec4(){var w=WR[WT];
  var h='<section class="card" id="c4"><h2>4. '+esc(T(SEC[3]))+'</h2><div class="tabs">'+WR.map(function(x,i){return'<button type="button" data-wt="'+i+'"'+(i==WT?' class="on"':"")+">"+esc(T(x.t))+"</button>"}).join("")+"</div>";
  h+="<p style='margin:4px 0'><b>"+esc(T(w.lead))+"</b></p>"+chain(w.ch)+"<h3>"+esc(T(U.seq))+"</h3>"+steps(w.s);
- h+="<h3>"+esc(T(U.wex))+'</h3><p class="hint" style="margin:0">'+esc(T(U.tap))+'</p><div class="leg">'+w.roles.map(function(r){return'<button type="button" class="'+r[0]+'" data-hl="'+r[0]+'">'+esc(T(r[1]))+"</button>"}).join("")+'</div><div class="exm" id="exm">'+(function(e){return e[LG]||e.en})((SD[SUB].wex&&SD[SUB].wex[WT])||w.ex).map(function(p){return p[0]?'<span class="hl '+p[0]+'" data-r="'+p[0]+'">'+esc(p[1])+"</span>":esc(p[1])}).join("")+"</div>";
- h+='<p class="hint" style="margin:6px 0 0"><b>'+esc(T(U.rex))+":</b> "+esc(T(w.rd))+"</p>"+'<div class="meet">'+box("k2","",U.student,w.stu)+box("k4","sup",U.supervisor,w.sup)+"</div>";
+ var wt=(window.EE_CMP_WXT||{})[SUB];h+="<h3>"+esc(T(U.wex)+(wt?" · "+T(wt):""))+'</h3><p class="hint" style="margin:0">'+esc(T(U.tap))+'</p><div class="leg">'+w.roles.map(function(r){return'<button type="button" class="'+r[0]+'" data-hl="'+r[0]+'">'+esc(T(r[1]))+"</button>"}).join("")+'</div><div class="exm" id="exm">'+(function(e){return e[LG]||e.en})((SD[SUB].wex&&SD[SUB].wex[WT])||((window.EE_CMP_WEX||{})[SUB]||[])[WT]||w.ex).map(function(p){return p[0]?'<span class="hl '+p[0]+'" data-r="'+p[0]+'">'+esc(p[1])+"</span>":esc(p[1])}).join("")+"</div>";
+ h+='<p class="hint" style="margin:6px 0 0"><b>'+esc(T(U.rex))+":</b> "+esc(T((function(R){var r=R[SUB]||R[grp()];return r&&r[WT]})(window.EE_CMP_WRD||{})||w.rd))+"</p>"+'<div class="meet">'+box("k2","",U.student,w.stu)+box("k4","sup",U.supervisor,w.sup)+"</div>";
  return h+"</section>"}
 function sec5(){var h='<section class="card" id="c5"><h2>5. '+esc(T(SEC[4]))+"</h2>"+cardBlock(CARDS.meet).replace(/^<h3>/,'<h3 style="margin-top:4px">');
  h+="<h3>"+esc(T(SVL.t))+'</h3><table class="sv"><thead><tr><th>'+esc(T(SVL.stage))+"</th><th>"+esc(T(SVL.brings))+"</th><th>"+esc(T(SVL.asks))+"</th></tr></thead><tbody>"+SV.map(function(r){return'<tr><td data-l="'+esc(T(SVL.stage))+'"><span class="chain" style="margin:0"><span class="'+r[1]+'">'+esc(T(r[0]))+'</span></span></td><td data-l="'+esc(T(SVL.brings))+'">'+esc(T(r[2]))+'</td><td data-l="'+esc(T(SVL.asks))+'">'+esc(T(r[3]))+"</td></tr>"}).join("")+"</tbody></table>";
