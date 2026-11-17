@@ -34,6 +34,7 @@ h1{font-size:24px;margin:4px 0}h2{font-size:19px;margin:0 0 4px}h3{font-size:15p
 .step b{display:block;margin-bottom:2px}
 /* boxes */
 .boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:10px 0}
+.box.must{border-width:2px 2px 2px 5px;border-color:var(--k)}.box.must .lb{font-size:15px}.box.must ul{margin:6px 0;padding-left:20px}.box.must li{margin:3px 0}.box.must .hint{margin:4px 0 0}
 .box{border:1px solid var(--line);border-left:5px solid var(--k);border-radius:10px;padding:10px 12px;background:var(--card);font-size:14px}
 .box .lb{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--k);margin-bottom:4px}
 .box.sup{background:color-mix(in srgb,var(--c4) 7%,var(--card))}
@@ -99,7 +100,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js?v=9"></script>
+<script src="compass-data.js?v=10"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
@@ -288,6 +289,7 @@ function sec3(){var d=SD[SUB];
  h+='<div class="boxes">'+box("k1","rq",U.rq,d.rq)+box("k2","",U.task,d.task)+box("k3","",U.an,d.an)+box("k4","sup",U.svq,d.sv)+"</div>";
  h+='<p class="note">'+esc(T(U.placeholders))+"</p>";
  if(d.note)h+='<div class="box k1" style="margin-top:10px"><p>ℹ️ '+esc(T(d.note))+"</p></div>";
+ if(d.must)h+='<div class="box k3 must" style="margin-top:10px"><span class="lb">🖼️ '+esc(T(d.must.t))+'</span><ul>'+d.must.i.map(function(x){return"<li>"+esc(T(x))+"</li>"}).join("")+'</ul><p class="hint">'+esc(T(d.must.s))+"</p></div>";
  h+="<h3>🔎 "+esc(T(d.lensT||SL.lens))+"</h3><p style='margin:0'>"+esc(T(d.lens))+"</p>";
  h+='<div class="cmp"><div class="no"><b>✖ '+esc(T(SL.broad))+"</b>"+esc(T(d.broad))+'</div><div class="yes"><b>✔ '+esc(T(SL.better))+"</b>"+esc(T(d.better))+'<p style="margin:6px 0 0;font-weight:600">'+esc(T(d.better2))+"</p></div></div>";
  h+="<h3>🧭 "+esc(T(SL.other))+'</h3><div class="boxes">'+d.other.map(function(o,i){return box("k"+(i+2),"",o[0],o[1])}).join("")+"</div>";
