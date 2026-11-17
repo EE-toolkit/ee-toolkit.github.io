@@ -92,7 +92,7 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <h1>🧭 EE Compass</h1>
 <p class="sub" id="lead"></p>
 <div class="ctl">
-  <div class="seg" id="lang"><button data-v="kz">Қаз</button><button data-v="ru">Рус</button><button data-v="en">Eng</button></div>
+
   <label><span id="roleL"></span><span class="seg" id="role"><button data-v="all"></button><button data-v="stu"></button><button data-v="sup"></button></span></label>
   <label><span id="subjL"></span><select id="subj"></select></label>
   <button type="button" class="pbtn" id="print"></button>
@@ -101,12 +101,12 @@ table.sv{width:100%;border-collapse:collapse;font-size:14px}table.sv th,table.sv
 <div id="app"></div>
 <p class="note" id="credit"></p>
 </main>
-<script src="compass-data.js?v=11"></script>
+<script src="compass-data.js?v=12"></script>
 <script>
 (function(){
 function A(en,ru,kz){return{en:en,ru:ru,kz:kz}}
 var LG="en",ROLE="all",WT=0,RS=0,DONE={};
-try{var q=new URLSearchParams(location.search).get("lang");LG=q||localStorage.getItem("ee_cmp_lang")||(/^ru/i.test(navigator.language)?"ru":/^kk/i.test(navigator.language)?"kz":"en");ROLE=localStorage.getItem("ee_cmp_role")||"all";DONE=JSON.parse(localStorage.getItem("ee_cmp_v1")||"{}").done||{}}catch(e){}
+try{ROLE=localStorage.getItem("ee_cmp_role")||"all";DONE=JSON.parse(localStorage.getItem("ee_cmp_v1")||"{}").done||{}}catch(e){}
 if(!/^(en|ru|kz)$/.test(LG))LG="en";
 function T(x){return x==null?"":typeof x==="string"?x:(x[LG]||x.en)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -262,6 +262,7 @@ var SVL={t:A("What to bring and what to ask","Что принести и о чё
 
 var SEC=[A("From topic to question","От темы к вопросу","Тақырыптан сұраққа"),A("Evidence","Данные","Дерек"),A("Your subject","Ваш предмет","Сіздің пәніңіз"),A("Writing","Письмо","Жазу"),A("Supervisor","Руководитель","Жетекші")];
 var SUB=localStorage&&(function(){try{return localStorage.getItem("ee_cmp_subj")}catch(e){return null}})()||"eco";if(!SD[SUB])SUB="eco";
+var SUBLG={kza:"kz",rua:"ru"};LG=SUBLG[SUB]||"en";
 
 // ---------- building blocks
 function chain(a){return'<div class="chain">'+a.map(function(x,i){return(i?"<i>→</i>":"")+'<span class="k'+(i+1)+'">'+esc(T(x))+"</span>"}).join("")+"</div>"}
@@ -338,7 +339,7 @@ function panel(){if(ROLE=="all")return"";collect();
 function render(){document.documentElement.lang=LG=="kz"?"kk":LG;
  document.getElementById("lead").textContent=T(U.lead);document.getElementById("roleL").textContent=T(U.role);document.getElementById("subjL").textContent=T(U.subj);document.getElementById("print").textContent=T(U.print);
  document.getElementById("credit").textContent=T(U.credit);
- document.querySelectorAll("#lang button").forEach(function(b){b.classList.toggle("on",b.dataset.v==LG)});
+
  document.querySelectorAll("#role button").forEach(function(b){b.classList.toggle("on",b.dataset.v==ROLE);b.textContent=T(U[b.dataset.v])});
  document.getElementById("subj").innerHTML=SUBJ.filter(function(s){return SD[s[0]]}).map(function(s){return'<option value="'+s[0]+'"'+(SD[s[0]]?"":" disabled")+(s[0]==SUB?" selected":"")+">"+esc(T(s[1]))+(SD[s[0]]?"":" ("+esc(T(U.soon))+")")+"</option>"}).join("");
  document.getElementById("toc").innerHTML=(ROLE=="all"?"":'<a href="#c0">'+(ROLE=="stu"?"✅ "+esc(T(U.todoT)):"👩‍🏫 "+esc(T(U.sheetT)))+"</a>")+SEC.map(function(s,i){return'<a href="#c'+(i+1)+'">'+(i+1)+". "+esc(T(s))+"</a>"}).join("");
@@ -348,10 +349,10 @@ function render(){document.documentElement.lang=LG=="kz"?"kk":LG;
  document.querySelectorAll("[data-hl]").forEach(function(b){b.onclick=function(){var on=!b.classList.contains("on");document.querySelectorAll("[data-hl]").forEach(function(x){x.classList.remove("on")});var ex=document.getElementById("exm");ex.classList.toggle("f",on);ex.querySelectorAll(".hl").forEach(function(s){s.classList.toggle("sel",on&&s.dataset.r==b.dataset.hl)});if(on)b.classList.add("on")}});
  document.querySelectorAll("[data-td]").forEach(function(b){b.onchange=function(){if(b.checked)DONE[b.dataset.td]=1;else delete DONE[b.dataset.td];save();var y=scrollY;render();scrollTo(0,y)}});
  save()}
-document.querySelectorAll("#lang button").forEach(function(b){b.onclick=function(){LG=LG0=b.dataset.v;render()}});
+
 document.querySelectorAll("#role button").forEach(function(b){b.onclick=function(){ROLE=b.dataset.v;render()}});
-var SUBLG={kza:"kz",rua:"ru"},LG0=LG;
-document.getElementById("subj").onchange=function(){SUB=this.value;LG=SUBLG[SUB]||LG0;try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
+
+document.getElementById("subj").onchange=function(){SUB=this.value;LG=SUBLG[SUB]||"en";try{localStorage.setItem("ee_cmp_subj",SUB)}catch(e){}render()};
 document.getElementById("print").onclick=function(){print()};
 render();
 if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView()}
