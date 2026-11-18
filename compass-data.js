@@ -169,6 +169,7 @@ S.dsoc={
  follow:[A("System data flow","Поток данных","Дерек ағыны"),A("Safeguards on paper","Защита на бумаге","Қағаздағы қорғау"),A("Evidence from users","Данные от пользователей","Пайдаланушылар деректері"),A("Judgement on autonomy","Вывод о самостоятельности","Дербестік туралы баға")]
 };
 
+S.dsoc.str.forEach(function(s,i){s[2]=[500,700,900,900,600,400][i]});
 // ---- History
 S.his={
  lensT:A("The historian’s lens","Взгляд историка","Тарихшы көзқарасы"),

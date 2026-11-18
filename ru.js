@@ -23,7 +23,7 @@
   var X = {
     // page, header and footer
     '🔬 EE Builder by subject · Конструктор EE по предметам': '🔬 Конструктор EE по предметам',
-    'Physics, Chemistry, Biology, Economics, Business Management, History, Mathematics, Computer Science, Geography, Arts, Language A, Language B. Each subject has its own question fields, variables, 4000-word structure and a week-by-week plan. Values in the fields are examples only: replace them. · Значения в полях — примеры, замените их.':
+    'Physics, Chemistry, Biology, ESS, Economics, Business Management, Digital Society, History, Mathematics, Computer Science, Geography, Arts, Language A, Language B. Each subject has its own question fields, variables, 4000-word structure and a week-by-week plan. Values in the fields are examples only: replace them. · Значения в полях — примеры, замените их.':
       'У каждого предмета свои поля вопроса, элементы анализа, структура на 4000 слов и план по неделям. Значения в полях — только примеры: замените их своими.',
     'EE Builder': 'Конструктор EE', 'Which subject?': 'Какой предмет?', 'APA 7 references': 'Ссылки APA 7', 'Builder': 'Конструктор',
     'Subject': 'Предмет', 'Question': 'Вопрос', 'Variables': 'Элементы', 'Sources': 'Источники', 'Blueprint': 'Структура', 'Time left': 'Время', 'Citations': 'Ссылки', 'Examples': 'Примеры',
